@@ -1,0 +1,166 @@
+﻿<Growl:GrowlPopup
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Growl.Displays.TranslucentDark"
+    xmlns:Growl="clr-namespace:Growl.Displays.Wpf"
+    x:Class="Growl.Displays.TranslucentDark.TranslucentDarkPopup"
+    >
+    <Popup.Resources>
+        <local:ColorConverter x:Key="ColorConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TextColor}" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Popup.Resources>
+    <Border x:Name="border"
+            Padding="5,0,5,0">
+        <Border.Background>
+            <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#ffffffff}" />
+        </Border.Background>
+        <Border.BorderBrush>
+            <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#aaffffff}" />
+        </Border.BorderBrush>
+        <Border.RenderTransform>
+            <TranslateTransform x:Name="borderTranslation" />
+        </Border.RenderTransform>
+        <Border.Triggers>
+            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation
+                            Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                            Duration="0:0:0.2"
+                            To="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#ffffffff}" />
+                        <ColorAnimation
+                            Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
+                            Duration="0:0:0.2"
+                            To="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#aaffffff}" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation
+                            Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                            Duration="0:0:0.2"
+                            To="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#ffffffff}" />
+                        <ColorAnimation
+                            Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)"
+                            Duration="0:0:0.2"
+                            To="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ContainerColor, Converter={StaticResource ColorConverter}, ConverterParameter=#aaffffff}" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Border.Triggers>
+        <ItemsControl
+            x:Name="notificationsControl"
+            MouseLeftButtonUp="notificationsItems_MouseLeftButtonUp"
+            MouseRightButtonUp="notificationsItems_MouseRightButtonUp">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type Growl:GrowlNotification}">
+                    <Border
+                        x:Name="border"
+                        Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=NotificationWidth}"
+                        Margin="0,3,0,3"
+                        Padding="3"
+                        BorderThickness="2"
+                        CornerRadius="15">
+                        <Border.RenderTransform>
+                            <TranslateTransform x:Name="notificationTranslation" />
+                        </Border.RenderTransform>
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#00ffffff" />
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#00ffffff" Offset="0" />
+                                <GradientStop Color="#00ffffff" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" Duration="0:0:0.1" To="#44ffffff" />
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" Duration="0:0:0.1" To="#44ffffff" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" Duration="0:0:0.05" To="#44ffffff" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" Duration="0:0:0.05" To="#00ffffff" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" Duration="0:0:0.2" To="#00ffffff" />
+                                        <ColorAnimation Storyboard.TargetProperty="Background.(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" Duration="0:0:0.2" To="#00ffffff" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox
+                                Grid.Column="0"
+                                Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                VerticalAlignment="Top"
+                                Margin="0,0,5,0"
+                                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=IconSize}"
+                                Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=IconSize}"
+                                StretchDirection="Both"
+                                Stretch="Uniform">
+                                <Image Source="{Binding Image}" />
+                            </Viewbox>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowText, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Text="{Binding Title}"
+                                    FontWeight="Bold"
+                                    TextWrapping="NoWrap"
+                                    TextTrimming="CharacterEllipsis">
+                                    <TextBlock.Foreground>
+                                        <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TextColor}" />
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowText, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Text="{Binding Description}"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="None">
+                                    <TextBlock.Foreground>
+                                        <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TextColor}" />
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Border>
+</Growl:GrowlPopup>

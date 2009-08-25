@@ -1,0 +1,161 @@
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using Growl.Displays.Wpf;
+
+namespace Growl.Displays.TranslucentDark
+{
+    public partial class TranslucentDarkPopup
+    {
+        #region Properties
+        public double NotificationWidth
+        {
+            get { return (double)GetValue(NotificationWidthProperty); }
+            set { SetValue(NotificationWidthProperty, value); }
+        }
+        public static readonly DependencyProperty NotificationWidthProperty = DependencyProperty.Register("NotificationWidth", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(256.0, FrameworkPropertyMetadataOptions.None));
+
+        public double IconSize
+        {
+            get { return (double)GetValue(IconSizeProperty); }
+            set { SetValue(IconSizeProperty, value); }
+        }
+        public static readonly DependencyProperty IconSizeProperty = DependencyProperty.Register("IconSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(48.0, FrameworkPropertyMetadataOptions.None));
+
+        public Color TextColor
+        {
+            get { return (Color)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+        public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register("TextColor", typeof(Color), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.None));
+
+        public Color ContainerColor
+        {
+            get { return (Color)GetValue(ContainerColorProperty); }
+            set { SetValue(ContainerColorProperty, value); }
+        }
+        public static readonly DependencyProperty ContainerColorProperty = DependencyProperty.Register("ContainerColor", typeof(Color), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.None));
+
+        public bool ShowIcon
+        {
+            get { return (bool)GetValue(ShowIconProperty); }
+            set { SetValue(ShowIconProperty, value); }
+        }
+        public static readonly DependencyProperty ShowIconProperty = DependencyProperty.Register("ShowIcon", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
+
+        public bool ShowText
+        {
+            get { return (bool)GetValue(ShowTextProperty); }
+            set { SetValue(ShowTextProperty, value); }
+        }
+        public static readonly DependencyProperty ShowTextProperty = DependencyProperty.Register("ShowText", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
+        #endregion
+
+        #region Constructors
+
+        public TranslucentDarkPopup()
+        {
+            InitializeComponent();
+            Initialize();
+        }
+
+        #endregion
+
+        public void Initialize()
+        {
+            HorizontalAlignment horizontal = PopupDocker.GetDockHorizontal(this);
+            VerticalAlignment vertical = PopupDocker.GetDockVertical(this);
+            border.BorderThickness = new Thickness(
+                (horizontal == HorizontalAlignment.Left || horizontal == HorizontalAlignment.Stretch) ? 0.0 : 5.0,
+                (vertical == VerticalAlignment.Top || vertical == VerticalAlignment.Stretch) ? 0.0 : 5.0,
+                (horizontal == HorizontalAlignment.Right || horizontal == HorizontalAlignment.Stretch) ? 0.0 : 5.0,
+                (vertical == VerticalAlignment.Bottom || vertical == VerticalAlignment.Stretch) ? 0.0 : 5.0
+                );
+            border.CornerRadius = new CornerRadius(
+                ((vertical == VerticalAlignment.Bottom || vertical == VerticalAlignment.Center) && (horizontal == HorizontalAlignment.Right || horizontal == HorizontalAlignment.Center)) ? 10.0 : 0.0,
+                ((vertical == VerticalAlignment.Bottom || vertical == VerticalAlignment.Center) && (horizontal == HorizontalAlignment.Left || horizontal == HorizontalAlignment.Center)) ? 10.0 : 0.0,
+                ((vertical == VerticalAlignment.Top || vertical == VerticalAlignment.Center) && (horizontal == HorizontalAlignment.Left || horizontal == HorizontalAlignment.Center)) ? 10.0 : 0.0,
+                ((vertical == VerticalAlignment.Top || vertical == VerticalAlignment.Center) && (horizontal == HorizontalAlignment.Right || horizontal == HorizontalAlignment.Center)) ? 10.0 : 0.0
+                );
+
+            var itemsSource = Notifications;
+            if (VerticalAlignment == VerticalAlignment.Top)
+                itemsSource = new ReversedObservableCollection<GrowlNotification>(Notifications);
+            notificationsControl.ItemsSource = itemsSource;
+        }
+
+        #region Helper Methods
+
+        protected FrameworkElement GetNotificationElement(GrowlNotification notification)
+        {
+            // HACK: Update the layout to make sure the containers are generated.
+            notificationsControl.UpdateLayout();
+            var container = notificationsControl.ItemContainerGenerator.ContainerFromItem(notification) as ContentPresenter;
+            return (FrameworkElement)container.ContentTemplate.FindName("border", container);
+        }
+
+        #endregion
+
+        #region Animations
+
+        protected override void BeginTimeoutAnimation(GrowlNotification notification)
+        {
+            var notificationBorder = GetNotificationElement(notification);
+            var notificationTransformation = notificationBorder.RenderTransform;
+            Duration animationDuration = new Duration(TimeSpan.FromSeconds(0.5));
+            AnimationTimeline animation;
+            HorizontalAlignment horizontal = PopupDocker.GetDockHorizontal(this);
+            if (horizontal == HorizontalAlignment.Left)
+                animation = new DoubleAnimation(0.0, -notificationBorder.ActualWidth, animationDuration);
+            else
+                animation = new DoubleAnimation(0.0, notificationBorder.ActualWidth, animationDuration);
+            animation.Completed += delegate { EndTimeoutAnimation(notification); };
+            notificationTransformation.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
+
+        protected override void BeginOpenAnimation(GrowlNotification notification)
+        {
+            var container = GetNotificationElement(notification);
+            VerticalAlignment vertical = PopupDocker.GetDockVertical(this);
+            if (vertical == VerticalAlignment.Bottom ||
+                vertical == VerticalAlignment.Top)
+            {
+                var animation = new DoubleAnimation((vertical == VerticalAlignment.Top ? -1.0 : 1.0) * container.DesiredSize.Height + borderTranslation.Y, 0, new Duration(TimeSpan.FromSeconds(0.5)));
+                animation.Completed += delegate { EndOpenAnimation(notification); };
+                borderTranslation.BeginAnimation(TranslateTransform.YProperty, animation);
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void notificationsItems_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var element = e.OriginalSource as FrameworkElement;
+            if (element == null)
+                return;
+            var notification = element.DataContext as GrowlNotification;
+            if (notification == null)
+                return;
+            CloseNotification(notification);
+        }
+
+        private void notificationsItems_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var element = e.OriginalSource as FrameworkElement;
+            if (element == null)
+                return;
+            var notification = element.DataContext as GrowlNotification;
+            if (notification == null)
+                return;
+            ClickNotification(notification);
+        }
+
+        #endregion
+    }
+}
