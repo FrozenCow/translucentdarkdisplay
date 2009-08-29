@@ -80,29 +80,38 @@ namespace Growl.Displays.Wpf
             Uri imageUri;
             if (notification.Image.IsUrl && Uri.TryCreate(notification.Image.Url, UriKind.Absolute, out imageUri))
             {
-                try
-                {
-                    image = new BitmapImage(new Uri(notification.Image.Url));
-                }
-                    // This is very hacky, but the MSDN documentation does not state all of the possible exceptions.
-                catch
-                {
-                }
-            }
-            else if (notification.Image.IsRawData)
-            {
-                var stream = new MemoryStream(notification.Image.Data, 0, notification.Image.Data.Length);
                 image = new BitmapImage();
                 image.BeginInit();
-                image.StreamSource = stream;
+                image.UriSource = new Uri(notification.Image.Url);
+                image.CacheOption = BitmapCacheOption.OnLoad;
                 try
                 {
                     image.EndInit();
                 }
-                    // Again very hacky. Again for the same reason.
+                // This is very hacky, but the MSDN documentation does not state all of the possible exceptions.
                 catch
                 {
                     image = null;
+                }
+            }
+            else if (notification.Image.IsRawData)
+            {
+                using (var stream = new MemoryStream(notification.Image.Data, 0, notification.Image.Data.Length))
+                {
+                    image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.CreateOptions = BitmapCreateOptions.None;
+                    image.StreamSource = stream;
+                    try
+                    {
+                        image.EndInit();
+                    }
+                    // Again very hacky. Again for the same reason.
+                    catch
+                    {
+                        image = null;
+                    }
                 }
             }
             growlNotification.Image = image;
