@@ -2,6 +2,7 @@ namespace Growl.Displays.Wpf
 {
     public enum GrowlNotificationStatus
     {
+        Pending,
         Opening,
         Opened,
         Timingout,

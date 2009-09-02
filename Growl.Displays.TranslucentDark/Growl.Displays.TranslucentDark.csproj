@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorConverter.cs" />
+    <Compile Include="Growl.Displays.Wpf\FullscreenDetector.cs" />
     <Compile Include="Growl.Displays.Wpf\GrowlNotification.cs" />
     <Compile Include="Growl.Displays.Wpf\GrowlNotificationEventArgs.cs" />
     <Compile Include="Growl.Displays.Wpf\GrowlNotificationStatus.cs" />

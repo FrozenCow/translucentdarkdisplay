@@ -1,7 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Media;
 using Growl.Displays.Wpf;
 using System.Windows.Forms;
+using Timer = System.Threading.Timer;
+using System.Threading;
+using System;
+using System.Windows.Threading;
 
 namespace Growl.Displays.TranslucentDark
 {
@@ -36,9 +41,50 @@ namespace Growl.Displays.TranslucentDark
 
         #endregion
 
+        public IList<GrowlNotification> PendingNotifications { get; private set; }
+        private Timer pendingTimer;
+
         public TranslucentDarkDisplay()
         {
             SettingsPanel = new TranslucentDarkSettingsPanel();
+            PendingNotifications = new List<GrowlNotification>();
+        }
+
+        protected override void OpenNotification(GrowlNotification notification)
+        {
+            if (FullscreenDetector.IsFullscreen())
+            {
+                lock (PendingNotifications)
+                {
+                    notification.Status = GrowlNotificationStatus.Pending;
+                    PendingNotifications.Add(notification);
+                    if (pendingTimer == null)
+                        pendingTimer = new Timer(PendingTimerCallback, null, TimeSpan.FromSeconds(10),  TimeSpan.FromSeconds(10));
+                }
+            }
+            else
+                base.OpenNotification(notification);
+        }
+
+        private void PendingTimerCallback(object state)
+        {
+            if (FullscreenDetector.IsFullscreen())
+                return;
+            IList<GrowlNotification> pendingNotifications;
+            lock (PendingNotifications)
+            {
+                pendingTimer.Dispose();
+                pendingTimer = null;
+
+                pendingNotifications = new List<GrowlNotification>(PendingNotifications);
+                PendingNotifications.Clear();
+            }
+
+            System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                                                                      {
+                                                                          foreach (GrowlNotification notification in pendingNotifications)
+                                                                              OpenNotification(notification);
+                                                                      }));
         }
 
         protected override GrowlPopup CreatePopup()
