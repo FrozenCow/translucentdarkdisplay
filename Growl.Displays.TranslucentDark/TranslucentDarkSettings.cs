@@ -61,6 +61,12 @@ namespace Growl.Displays.TranslucentDark
             set { Set("Screen", value); }
         }
 
+        public bool PauseOnFullscreen
+        {
+            get { return Get("PauseOnFullscreen", false); }
+            set { Set("PauseOnFullscreen", value); }
+        }
+
         public TranslucentDarkSettings(IDictionary<string, object> settings)
             : base(settings)
         {

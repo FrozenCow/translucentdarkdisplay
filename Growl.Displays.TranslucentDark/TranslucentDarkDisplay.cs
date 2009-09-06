@@ -52,7 +52,8 @@ namespace Growl.Displays.TranslucentDark
 
         protected override void OpenNotification(GrowlNotification notification)
         {
-            if (FullscreenDetector.IsFullscreen())
+            var settings = new TranslucentDarkSettings(SettingsCollection);
+            if (settings.PauseOnFullscreen && FullscreenDetector.IsFullscreen())
             {
                 lock (PendingNotifications)
                 {
@@ -68,7 +69,8 @@ namespace Growl.Displays.TranslucentDark
 
         private void PendingTimerCallback(object state)
         {
-            if (FullscreenDetector.IsFullscreen())
+            var settings = new TranslucentDarkSettings(SettingsCollection);
+            if (settings.PauseOnFullscreen && FullscreenDetector.IsFullscreen())
                 return;
             IList<GrowlNotification> pendingNotifications;
             lock (PendingNotifications)

@@ -34,10 +34,15 @@ namespace Growl.Displays.TranslucentDark
         private Label containerColorLabel;
         private PictureBox containerColorBox;
         private NumericUpDown containerAlphaBox;
+        private GroupBox behaviorBox;
+        private CheckBox PauseOnFullscreenBox;
+        private ToolTip toolTip;
+        private IContainer components;
         private System.Windows.Forms.ColorDialog colorDialog;
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.horizontalPlacementBox = new System.Windows.Forms.ComboBox();
             this.horizontalPlacementLabel = new System.Windows.Forms.Label();
@@ -51,20 +56,24 @@ namespace Growl.Displays.TranslucentDark
             this.screenBox = new System.Windows.Forms.ComboBox();
             this.placementBox = new System.Windows.Forms.GroupBox();
             this.appearanceBox = new System.Windows.Forms.GroupBox();
+            this.containerAlphaBox = new System.Windows.Forms.NumericUpDown();
             this.containerColorBox = new System.Windows.Forms.PictureBox();
             this.containerColorLabel = new System.Windows.Forms.Label();
             this.textColorLabel = new System.Windows.Forms.Label();
             this.iconSizeLabel = new System.Windows.Forms.Label();
             this.showIconBox = new System.Windows.Forms.CheckBox();
             this.iconSizeBox = new System.Windows.Forms.NumericUpDown();
-            this.containerAlphaBox = new System.Windows.Forms.NumericUpDown();
+            this.behaviorBox = new System.Windows.Forms.GroupBox();
+            this.PauseOnFullscreenBox = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
             this.placementBox.SuspendLayout();
             this.appearanceBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.containerAlphaBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.containerColorBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconSizeBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.containerAlphaBox)).BeginInit();
+            this.behaviorBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // horizontalPlacementBox
@@ -162,7 +171,7 @@ namespace Growl.Displays.TranslucentDark
             // screenLabel
             // 
             this.screenLabel.AutoSize = true;
-            this.screenLabel.Location = new System.Drawing.Point(228, 115);
+            this.screenLabel.Location = new System.Drawing.Point(228, 224);
             this.screenLabel.Name = "screenLabel";
             this.screenLabel.Size = new System.Drawing.Size(41, 13);
             this.screenLabel.TabIndex = 15;
@@ -174,7 +183,7 @@ namespace Growl.Displays.TranslucentDark
             this.screenBox.DisplayMember = "DeviceName";
             this.screenBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.screenBox.FormattingEnabled = true;
-            this.screenBox.Location = new System.Drawing.Point(343, 112);
+            this.screenBox.Location = new System.Drawing.Point(343, 221);
             this.screenBox.Name = "screenBox";
             this.screenBox.Size = new System.Drawing.Size(98, 21);
             this.screenBox.TabIndex = 16;
@@ -213,6 +222,19 @@ namespace Growl.Displays.TranslucentDark
             this.appearanceBox.TabIndex = 18;
             this.appearanceBox.TabStop = false;
             this.appearanceBox.Text = "Appearance";
+            // 
+            // containerAlphaBox
+            // 
+            this.containerAlphaBox.Location = new System.Drawing.Point(158, 19);
+            this.containerAlphaBox.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.containerAlphaBox.Name = "containerAlphaBox";
+            this.containerAlphaBox.Size = new System.Drawing.Size(44, 20);
+            this.containerAlphaBox.TabIndex = 20;
+            this.containerAlphaBox.ValueChanged += new System.EventHandler(this.containerAlphaBox_ValueChanged);
             // 
             // containerColorBox
             // 
@@ -282,22 +304,34 @@ namespace Growl.Displays.TranslucentDark
             0});
             this.iconSizeBox.ValueChanged += new System.EventHandler(this.IconSizeBoxValueChanged);
             // 
-            // containerAlphaBox
+            // behaviorBox
             // 
-            this.containerAlphaBox.Location = new System.Drawing.Point(158, 19);
-            this.containerAlphaBox.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.containerAlphaBox.Name = "containerAlphaBox";
-            this.containerAlphaBox.Size = new System.Drawing.Size(44, 20);
-            this.containerAlphaBox.TabIndex = 20;
-            this.containerAlphaBox.ValueChanged += new System.EventHandler(this.containerAlphaBox_ValueChanged);
+            this.behaviorBox.Controls.Add(this.PauseOnFullscreenBox);
+            this.behaviorBox.Location = new System.Drawing.Point(218, 113);
+            this.behaviorBox.Name = "behaviorBox";
+            this.behaviorBox.Size = new System.Drawing.Size(232, 45);
+            this.behaviorBox.TabIndex = 19;
+            this.behaviorBox.TabStop = false;
+            this.behaviorBox.Text = "Behavior";
+            // 
+            // PauseOnFullscreenBox
+            // 
+            this.PauseOnFullscreenBox.AutoSize = true;
+            this.PauseOnFullscreenBox.Location = new System.Drawing.Point(7, 20);
+            this.PauseOnFullscreenBox.Name = "PauseOnFullscreenBox";
+            this.PauseOnFullscreenBox.Size = new System.Drawing.Size(119, 17);
+            this.PauseOnFullscreenBox.TabIndex = 0;
+            this.PauseOnFullscreenBox.Text = "Pause on fullscreen";
+            this.toolTip.SetToolTip(this.PauseOnFullscreenBox, "When enabled, no notifications will be popped up when another application is runn" +
+                    "ing fullscreen. The notifications will be queued until the other application is " +
+                    "not running fullscreen anymore.");
+            this.PauseOnFullscreenBox.UseVisualStyleBackColor = true;
+            this.PauseOnFullscreenBox.CheckedChanged += new System.EventHandler(this.PauseOnFullscreenBox_CheckedChanged);
             // 
             // TranslucentDarkSettingsPanel
             // 
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.behaviorBox);
             this.Controls.Add(this.screenLabel);
             this.Controls.Add(this.appearanceBox);
             this.Controls.Add(this.placementBox);
@@ -310,9 +344,11 @@ namespace Growl.Displays.TranslucentDark
             this.placementBox.PerformLayout();
             this.appearanceBox.ResumeLayout(false);
             this.appearanceBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.containerAlphaBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.containerColorBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconSizeBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.containerAlphaBox)).EndInit();
+            this.behaviorBox.ResumeLayout(false);
+            this.behaviorBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,6 +400,8 @@ namespace Growl.Displays.TranslucentDark
             //textAlphaBox.Value = Settings.TextColor.A;
             containerAlphaBox.Value = Settings.ContainerColor.A;
             //notificationAlphaBox.Value = Settings.NotificationColor.A;
+
+            PauseOnFullscreenBox.Checked = Settings.PauseOnFullscreen;
         }
 
         private static void SetSelectedValue<T>(ComboBox box, T value)
@@ -507,6 +545,11 @@ namespace Growl.Displays.TranslucentDark
         {
             Settings.ContainerColor = Color.FromArgb((int)containerAlphaBox.Value, Settings.ContainerColor);
             containerColorBox.Invalidate();
+        }
+
+        private void PauseOnFullscreenBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.PauseOnFullscreen = PauseOnFullscreenBox.Checked;
         }
 
         /*private void notificationAlphaBox_ValueChanged(object sender, EventArgs e)
