@@ -67,6 +67,18 @@ namespace Growl.Displays.TranslucentDark
             set { Set("PauseOnFullscreen", value); }
         }
 
+        public string TitleFontFamily
+        {
+            get { return Get<string>("TitleFontFamily", null); }
+            set { Set("TitleFontFamily", value); }
+        }
+
+        public double TitleFontSize
+        {
+            get { return Get("TitleFontSize", double.NaN); }
+            set { Set("TitleFontSize", value); }
+        }
+
         public TranslucentDarkSettings(IDictionary<string, object> settings)
             : base(settings)
         {

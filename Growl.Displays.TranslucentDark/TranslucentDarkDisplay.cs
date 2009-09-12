@@ -99,6 +99,8 @@ namespace Growl.Displays.TranslucentDark
             popup.ContainerColor = WfColorToWpfColor(settings.ContainerColor);
             popup.ShowIcon = settings.ShowIcon;
             popup.ShowText = settings.ShowText;
+            popup.TitleFontFamily = settings.TitleFontFamily == null ? null : new FontFamily(settings.TitleFontFamily);
+            popup.TitleFontSize = settings.TitleFontSize;
 
             PopupDocker.SetDockHorizontal(popup, settings.HorizontalPlacement);
             PopupDocker.SetDockVertical(popup, settings.VerticalPlacement);

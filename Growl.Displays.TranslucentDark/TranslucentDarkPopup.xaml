@@ -141,7 +141,9 @@
                                     Text="{Binding Title}"
                                     FontWeight="Bold"
                                     TextWrapping="NoWrap"
-                                    TextTrimming="CharacterEllipsis">
+                                    TextTrimming="CharacterEllipsis"
+                                    FontFamily="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TitleFontFamily}"
+                                    FontSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TitleFontSize}">
                                     <TextBlock.Foreground>
                                         <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TextColor}" />
                                     </TextBlock.Foreground>

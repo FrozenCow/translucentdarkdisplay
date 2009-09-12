@@ -53,6 +53,21 @@ namespace Growl.Displays.TranslucentDark
             set { SetValue(ShowTextProperty, value); }
         }
         public static readonly DependencyProperty ShowTextProperty = DependencyProperty.Register("ShowText", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
+
+        public FontFamily TitleFontFamily
+        {
+            get { return (FontFamily)GetValue(TitleFontFamilyProperty); }
+            set { SetValue(TitleFontFamilyProperty, value); }
+        }
+        public static readonly DependencyProperty TitleFontFamilyProperty = DependencyProperty.Register("TitleFontFamily", typeof(FontFamily), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
+
+        public double TitleFontSize
+        {
+            get { return (double)GetValue(TitleFontSizeProperty); }
+            set { SetValue(TitleFontSizeProperty, value); }
+        }
+        public static readonly DependencyProperty TitleFontSizeProperty = DependencyProperty.Register("TitleFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
+
         #endregion
 
         #region Constructors

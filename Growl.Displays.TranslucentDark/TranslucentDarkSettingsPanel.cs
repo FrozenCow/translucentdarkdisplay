@@ -38,6 +38,13 @@ namespace Growl.Displays.TranslucentDark
         private CheckBox PauseOnFullscreenBox;
         private ToolTip toolTip;
         private IContainer components;
+        private Label titleSampleLabel;
+        private Button titleChangeFontButton;
+        private Label titleFontLabel;
+        private FontDialog fontDialog;
+        private Label descriptionSampleLabel;
+        private Button descriptionChangeFontButton;
+        private Label descriptionFontLabel;
         private System.Windows.Forms.ColorDialog colorDialog;
 
         private void InitializeComponent()
@@ -66,6 +73,13 @@ namespace Growl.Displays.TranslucentDark
             this.behaviorBox = new System.Windows.Forms.GroupBox();
             this.PauseOnFullscreenBox = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.titleFontLabel = new System.Windows.Forms.Label();
+            this.titleChangeFontButton = new System.Windows.Forms.Button();
+            this.titleSampleLabel = new System.Windows.Forms.Label();
+            this.fontDialog = new System.Windows.Forms.FontDialog();
+            this.descriptionSampleLabel = new System.Windows.Forms.Label();
+            this.descriptionChangeFontButton = new System.Windows.Forms.Button();
+            this.descriptionFontLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
             this.placementBox.SuspendLayout();
@@ -183,7 +197,7 @@ namespace Growl.Displays.TranslucentDark
             this.screenBox.DisplayMember = "DeviceName";
             this.screenBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.screenBox.FormattingEnabled = true;
-            this.screenBox.Location = new System.Drawing.Point(343, 221);
+            this.screenBox.Location = new System.Drawing.Point(343, 218);
             this.screenBox.Name = "screenBox";
             this.screenBox.Size = new System.Drawing.Size(98, 21);
             this.screenBox.TabIndex = 16;
@@ -207,6 +221,12 @@ namespace Growl.Displays.TranslucentDark
             // 
             // appearanceBox
             // 
+            this.appearanceBox.Controls.Add(this.descriptionSampleLabel);
+            this.appearanceBox.Controls.Add(this.descriptionChangeFontButton);
+            this.appearanceBox.Controls.Add(this.descriptionFontLabel);
+            this.appearanceBox.Controls.Add(this.titleSampleLabel);
+            this.appearanceBox.Controls.Add(this.titleChangeFontButton);
+            this.appearanceBox.Controls.Add(this.titleFontLabel);
             this.appearanceBox.Controls.Add(this.containerAlphaBox);
             this.appearanceBox.Controls.Add(this.containerColorBox);
             this.appearanceBox.Controls.Add(this.containerColorLabel);
@@ -218,7 +238,7 @@ namespace Growl.Displays.TranslucentDark
             this.appearanceBox.Controls.Add(this.textColorBox);
             this.appearanceBox.Location = new System.Drawing.Point(3, 3);
             this.appearanceBox.Name = "appearanceBox";
-            this.appearanceBox.Size = new System.Drawing.Size(208, 155);
+            this.appearanceBox.Size = new System.Drawing.Size(208, 265);
             this.appearanceBox.TabIndex = 18;
             this.appearanceBox.TabStop = false;
             this.appearanceBox.Text = "Appearance";
@@ -328,6 +348,66 @@ namespace Growl.Displays.TranslucentDark
             this.PauseOnFullscreenBox.UseVisualStyleBackColor = true;
             this.PauseOnFullscreenBox.CheckedChanged += new System.EventHandler(this.PauseOnFullscreenBox_CheckedChanged);
             // 
+            // titleFontLabel
+            // 
+            this.titleFontLabel.AutoSize = true;
+            this.titleFontLabel.Location = new System.Drawing.Point(26, 159);
+            this.titleFontLabel.Name = "titleFontLabel";
+            this.titleFontLabel.Size = new System.Drawing.Size(48, 13);
+            this.titleFontLabel.TabIndex = 21;
+            this.titleFontLabel.Text = "Title font";
+            // 
+            // titleChangeFontButton
+            // 
+            this.titleChangeFontButton.Location = new System.Drawing.Point(117, 154);
+            this.titleChangeFontButton.Name = "titleChangeFontButton";
+            this.titleChangeFontButton.Size = new System.Drawing.Size(85, 23);
+            this.titleChangeFontButton.TabIndex = 22;
+            this.titleChangeFontButton.Text = "Change...";
+            this.titleChangeFontButton.UseVisualStyleBackColor = true;
+            this.titleChangeFontButton.Click += new System.EventHandler(this.titleChangeFontButton_Click);
+            // 
+            // titleSampleLabel
+            // 
+            this.titleSampleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.titleSampleLabel.Location = new System.Drawing.Point(29, 180);
+            this.titleSampleLabel.Name = "titleSampleLabel";
+            this.titleSampleLabel.Size = new System.Drawing.Size(173, 23);
+            this.titleSampleLabel.TabIndex = 23;
+            this.titleSampleLabel.Text = "Sample title";
+            // 
+            // fontDialog
+            // 
+            this.fontDialog.AllowScriptChange = false;
+            this.fontDialog.ShowEffects = false;
+            // 
+            // descriptionSampleLabel
+            // 
+            this.descriptionSampleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.descriptionSampleLabel.Location = new System.Drawing.Point(29, 232);
+            this.descriptionSampleLabel.Name = "descriptionSampleLabel";
+            this.descriptionSampleLabel.Size = new System.Drawing.Size(173, 23);
+            this.descriptionSampleLabel.TabIndex = 26;
+            this.descriptionSampleLabel.Text = "Sample description";
+            // 
+            // descriptionChangeFontButton
+            // 
+            this.descriptionChangeFontButton.Location = new System.Drawing.Point(117, 206);
+            this.descriptionChangeFontButton.Name = "descriptionChangeFontButton";
+            this.descriptionChangeFontButton.Size = new System.Drawing.Size(85, 23);
+            this.descriptionChangeFontButton.TabIndex = 25;
+            this.descriptionChangeFontButton.Text = "Change...";
+            this.descriptionChangeFontButton.UseVisualStyleBackColor = true;
+            // 
+            // descriptionFontLabel
+            // 
+            this.descriptionFontLabel.AutoSize = true;
+            this.descriptionFontLabel.Location = new System.Drawing.Point(26, 211);
+            this.descriptionFontLabel.Name = "descriptionFontLabel";
+            this.descriptionFontLabel.Size = new System.Drawing.Size(81, 13);
+            this.descriptionFontLabel.TabIndex = 24;
+            this.descriptionFontLabel.Text = "Description font";
+            // 
             // TranslucentDarkSettingsPanel
             // 
             this.BackColor = System.Drawing.Color.Transparent;
@@ -337,7 +417,7 @@ namespace Growl.Displays.TranslucentDark
             this.Controls.Add(this.placementBox);
             this.Controls.Add(this.screenBox);
             this.Name = "TranslucentDarkSettingsPanel";
-            this.Size = new System.Drawing.Size(450, 242);
+            this.Size = new System.Drawing.Size(450, 304);
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).EndInit();
             this.placementBox.ResumeLayout(false);
@@ -402,6 +482,9 @@ namespace Growl.Displays.TranslucentDark
             //notificationAlphaBox.Value = Settings.NotificationColor.A;
 
             PauseOnFullscreenBox.Checked = Settings.PauseOnFullscreen;
+
+            if (Settings.TitleFontFamily != null)
+                titleSampleLabel.Font = new Font(Settings.TitleFontFamily, (float)Settings.TitleFontSize);
         }
 
         private static void SetSelectedValue<T>(ComboBox box, T value)
@@ -550,6 +633,16 @@ namespace Growl.Displays.TranslucentDark
         private void PauseOnFullscreenBox_CheckedChanged(object sender, EventArgs e)
         {
             Settings.PauseOnFullscreen = PauseOnFullscreenBox.Checked;
+        }
+
+        private void titleChangeFontButton_Click(object sender, EventArgs e)
+        {
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                Settings.TitleFontFamily = fontDialog.Font.FontFamily.Name;
+                Settings.TitleFontSize = (double)fontDialog.Font.SizeInPoints;
+                titleSampleLabel.Font = fontDialog.Font;
+            }
         }
 
         /*private void notificationAlphaBox_ValueChanged(object sender, EventArgs e)
