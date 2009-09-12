@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Growl.Displays.TranslucentDark", "Growl.Displays.TranslucentDark\Growl.Displays.TranslucentDark.csproj", "{70D37A7E-E190-4B70-9193-59FE9C19E06C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Growl.Displays.Wpf", "Growl.Displays.Wpf\Growl.Displays.Wpf.csproj", "{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{70D37A7E-E190-4B70-9193-59FE9C19E06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D37A7E-E190-4B70-9193-59FE9C19E06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D37A7E-E190-4B70-9193-59FE9C19E06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,9 +28,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -83,23 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorConverter.cs" />
-    <Compile Include="Growl.Displays.Wpf\FullscreenDetector.cs" />
-    <Compile Include="Growl.Displays.Wpf\GrowlNotification.cs" />
-    <Compile Include="Growl.Displays.Wpf\GrowlNotificationEventArgs.cs" />
-    <Compile Include="Growl.Displays.Wpf\GrowlNotificationStatus.cs" />
-    <Compile Include="Growl.Displays.Wpf\GrowlPopup.cs" />
-    <Compile Include="Growl.Displays.Wpf\MultiTimeout.cs" />
-    <Compile Include="Growl.Displays.Wpf\CleanDisplay.cs" />
-    <Compile Include="Growl.Displays.Wpf\PopupDocker.cs" />
-    <Compile Include="Growl.Displays.Wpf\SettingsWrapper.cs" />
-    <Compile Include="Growl.Displays.Wpf\WindowDocker.cs" />
-    <Compile Include="Growl.Displays.Wpf\WindowPinner.cs" />
-    <Compile Include="Growl.Displays.Wpf\WpfApplicationManager.cs" />
-    <Compile Include="Growl.Displays.Wpf\WpfDisplay.cs" />
-    <Compile Include="Growl.Displays.Wpf\WpfPopupDisplay.cs" />
-    <Compile Include="Growl.Displays.Wpf\WpfSettingsPanelBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="ReversedObservableCollection.cs" />
     <Compile Include="TranslucentDarkDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -133,6 +116,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Growl.Displays.Wpf\Growl.Displays.Wpf.csproj">
+      <Project>{6AD9EA72-6FAE-4DE7-BC62-69FECF1A26EB}</Project>
+      <Name>Growl.Displays.Wpf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
