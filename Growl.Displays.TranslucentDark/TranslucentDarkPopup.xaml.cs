@@ -47,12 +47,19 @@ namespace Growl.Displays.TranslucentDark
         }
         public static readonly DependencyProperty ShowIconProperty = DependencyProperty.Register("ShowIcon", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
-        public bool ShowText
+        public bool ShowTitle
         {
-            get { return (bool)GetValue(ShowTextProperty); }
-            set { SetValue(ShowTextProperty, value); }
+            get { return (bool)GetValue(ShowTitleProperty); }
+            set { SetValue(ShowTitleProperty, value); }
         }
-        public static readonly DependencyProperty ShowTextProperty = DependencyProperty.Register("ShowText", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
+        public static readonly DependencyProperty ShowTitleProperty = DependencyProperty.Register("ShowTitle", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
+
+        public bool ShowDescription
+        {
+            get { return (bool)GetValue(ShowDescriptionProperty); }
+            set { SetValue(ShowDescriptionProperty, value); }
+        }
+        public static readonly DependencyProperty ShowDescriptionProperty = DependencyProperty.Register("ShowDescription", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
         public FontFamily TitleFontFamily
         {
@@ -67,6 +74,20 @@ namespace Growl.Displays.TranslucentDark
             set { SetValue(TitleFontSizeProperty, value); }
         }
         public static readonly DependencyProperty TitleFontSizeProperty = DependencyProperty.Register("TitleFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
+
+        public FontFamily DescriptionFontFamily
+        {
+            get { return (FontFamily)GetValue(DescriptionFontFamilyProperty); }
+            set { SetValue(DescriptionFontFamilyProperty, value); }
+        }
+        public static readonly DependencyProperty DescriptionFontFamilyProperty = DependencyProperty.Register("DescriptionFontFamily", typeof(FontFamily), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
+
+        public double DescriptionFontSize
+        {
+            get { return (double)GetValue(DescriptionFontSizeProperty); }
+            set { SetValue(DescriptionFontSizeProperty, value); }
+        }
+        public static readonly DependencyProperty DescriptionFontSizeProperty = DependencyProperty.Register("DescriptionFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
 
         #endregion
 

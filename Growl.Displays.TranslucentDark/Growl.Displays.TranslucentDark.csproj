@@ -82,6 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGFontCombo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ColorConverter.cs" />
     <Compile Include="ReversedObservableCollection.cs" />
     <Compile Include="TranslucentDarkDisplay.cs" />

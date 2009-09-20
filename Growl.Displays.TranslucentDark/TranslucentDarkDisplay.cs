@@ -98,9 +98,13 @@ namespace Growl.Displays.TranslucentDark
             popup.TextColor = WfColorToWpfColor(settings.TextColor);
             popup.ContainerColor = WfColorToWpfColor(settings.ContainerColor);
             popup.ShowIcon = settings.ShowIcon;
-            popup.ShowText = settings.ShowText;
-            popup.TitleFontFamily = settings.TitleFontFamily == null ? null : new FontFamily(settings.TitleFontFamily);
+            popup.ShowTitle = settings.ShowTitle;
+            popup.ShowDescription = settings.ShowDescription;
+
+            popup.TitleFontFamily = GetFontFamily(settings.TitleFontFamily);
             popup.TitleFontSize = settings.TitleFontSize;
+            popup.DescriptionFontFamily = GetFontFamily(settings.DescriptionFontFamily);
+            popup.DescriptionFontSize = settings.DescriptionFontSize;
 
             PopupDocker.SetDockHorizontal(popup, settings.HorizontalPlacement);
             PopupDocker.SetDockVertical(popup, settings.VerticalPlacement);
@@ -108,6 +112,21 @@ namespace Growl.Displays.TranslucentDark
 
             popup.Initialize();
             return popup;
+        }
+
+        private static FontFamily GetFontFamily(string name)
+        {
+            if (name == null)
+                return null;
+            try
+            {
+                return new FontFamily(name);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                return null;
+            }
         }
 
         private static System.Windows.Media.Color WfColorToWpfColor(System.Drawing.Color c)

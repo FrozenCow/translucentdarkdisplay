@@ -137,7 +137,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     Grid.Row="0"
-                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowText, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Text="{Binding Title}"
                                     FontWeight="Bold"
                                     TextWrapping="NoWrap"
@@ -150,10 +150,12 @@
                                 </TextBlock>
                                 <TextBlock
                                     Grid.Row="1"
-                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowText, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=ShowDescription, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Text="{Binding Description}"
                                     TextWrapping="Wrap"
-                                    TextTrimming="None">
+                                    TextTrimming="None"
+                                    FontFamily="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=DescriptionFontFamily}"
+                                    FontSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=DescriptionFontSize}">
                                     <TextBlock.Foreground>
                                         <SolidColorBrush Color="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TranslucentDarkPopup}}, Path=TextColor}" />
                                     </TextBlock.Foreground>

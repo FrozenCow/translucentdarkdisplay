@@ -43,10 +43,16 @@ namespace Growl.Displays.TranslucentDark
             set { Set("IconSize", value); }
         }
 
-        public bool ShowText
+        public bool ShowTitle
         {
-            get { return Get("ShowText", true); }
-            set { Set("ShowText", value); }
+            get { return Get("ShowTitle", true); }
+            set { Set("ShowTitle", value); }
+        }
+
+        public bool ShowDescription
+        {
+            get { return Get("ShowDescription", true); }
+            set { Set("ShowDescription", value); }
         }
 
         public bool ShowIcon
@@ -77,6 +83,18 @@ namespace Growl.Displays.TranslucentDark
         {
             get { return Get("TitleFontSize", double.NaN); }
             set { Set("TitleFontSize", value); }
+        }
+
+        public string DescriptionFontFamily
+        {
+            get { return Get<string>("DescriptionFontFamily", null); }
+            set { Set("DescriptionFontFamily", value); }
+        }
+
+        public double DescriptionFontSize
+        {
+            get { return Get("DescriptionFontSize", double.NaN); }
+            set { Set("DescriptionFontSize", value); }
         }
 
         public TranslucentDarkSettings(IDictionary<string, object> settings)

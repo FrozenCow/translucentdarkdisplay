@@ -22,7 +22,7 @@ namespace Growl.Displays.TranslucentDark
         private NumericUpDown widthBox;
         private CheckBox fixedWidthBox;
         private PictureBox textColorBox;
-        private CheckBox showTextBox;
+        private CheckBox showTitleBox;
         private Label screenLabel;
         private ComboBox screenBox;
         private GroupBox placementBox;
@@ -38,14 +38,24 @@ namespace Growl.Displays.TranslucentDark
         private CheckBox PauseOnFullscreenBox;
         private ToolTip toolTip;
         private IContainer components;
-        private Label titleSampleLabel;
-        private Button titleChangeFontButton;
-        private Label titleFontLabel;
         private FontDialog fontDialog;
-        private Label descriptionSampleLabel;
-        private Button descriptionChangeFontButton;
-        private Label descriptionFontLabel;
+        private FontComboBox titleFontFamilyBox;
+        private FontComboBox descriptionFontFamilyBox;
+        private Label descriptionFontSizeLabel;
+        private Label descriptionFontFamilyLabel;
+        private CheckBox showDescriptionBox;
+        private Label titleSizeLabel;
+        private Label label1;
+        private ComboBox descriptionFontSizeBox;
+        private ComboBox titleFontSizeBox;
         private System.Windows.Forms.ColorDialog colorDialog;
+
+        object[] fontSizes = new object[]
+                {
+                    8.0, 9.0, 10.0, 11.0, 12.0,
+                    14.0, 16.0, 18.0, 20.0, 22.0, 24.0, 26.0, 28.0,
+                    36.0, 48.0, 72.0
+                };
 
         private void InitializeComponent()
         {
@@ -58,11 +68,20 @@ namespace Growl.Displays.TranslucentDark
             this.widthBox = new System.Windows.Forms.NumericUpDown();
             this.fixedWidthBox = new System.Windows.Forms.CheckBox();
             this.textColorBox = new System.Windows.Forms.PictureBox();
-            this.showTextBox = new System.Windows.Forms.CheckBox();
+            this.showTitleBox = new System.Windows.Forms.CheckBox();
             this.screenLabel = new System.Windows.Forms.Label();
             this.screenBox = new System.Windows.Forms.ComboBox();
             this.placementBox = new System.Windows.Forms.GroupBox();
             this.appearanceBox = new System.Windows.Forms.GroupBox();
+            this.descriptionFontSizeBox = new System.Windows.Forms.ComboBox();
+            this.descriptionFontSizeLabel = new System.Windows.Forms.Label();
+            this.descriptionFontFamilyLabel = new System.Windows.Forms.Label();
+            this.showDescriptionBox = new System.Windows.Forms.CheckBox();
+            this.titleFontSizeBox = new System.Windows.Forms.ComboBox();
+            this.titleSizeLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.descriptionFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
+            this.titleFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
             this.containerAlphaBox = new System.Windows.Forms.NumericUpDown();
             this.containerColorBox = new System.Windows.Forms.PictureBox();
             this.containerColorLabel = new System.Windows.Forms.Label();
@@ -73,13 +92,7 @@ namespace Growl.Displays.TranslucentDark
             this.behaviorBox = new System.Windows.Forms.GroupBox();
             this.PauseOnFullscreenBox = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.titleFontLabel = new System.Windows.Forms.Label();
-            this.titleChangeFontButton = new System.Windows.Forms.Button();
-            this.titleSampleLabel = new System.Windows.Forms.Label();
             this.fontDialog = new System.Windows.Forms.FontDialog();
-            this.descriptionSampleLabel = new System.Windows.Forms.Label();
-            this.descriptionChangeFontButton = new System.Windows.Forms.Button();
-            this.descriptionFontLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
             this.placementBox.SuspendLayout();
@@ -163,29 +176,29 @@ namespace Growl.Displays.TranslucentDark
             // 
             this.textColorBox.BackColor = System.Drawing.Color.Transparent;
             this.textColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textColorBox.Location = new System.Drawing.Point(117, 127);
+            this.textColorBox.Location = new System.Drawing.Point(88, 46);
             this.textColorBox.Name = "textColorBox";
             this.textColorBox.Size = new System.Drawing.Size(34, 21);
             this.textColorBox.TabIndex = 11;
             this.textColorBox.TabStop = false;
-            this.textColorBox.Click += new System.EventHandler(this.textColorBox_Click);
-            this.textColorBox.Paint += new System.Windows.Forms.PaintEventHandler(this.textColorBox_Paint);
+            this.textColorBox.Click += new System.EventHandler(this.TextColorBoxClick);
+            this.textColorBox.Paint += new System.Windows.Forms.PaintEventHandler(this.TextColorBoxPaint);
             // 
-            // showTextBox
+            // showTitleBox
             // 
-            this.showTextBox.AutoSize = true;
-            this.showTextBox.Location = new System.Drawing.Point(9, 102);
-            this.showTextBox.Name = "showTextBox";
-            this.showTextBox.Size = new System.Drawing.Size(73, 17);
-            this.showTextBox.TabIndex = 2;
-            this.showTextBox.Text = "Show text";
-            this.showTextBox.UseVisualStyleBackColor = true;
-            this.showTextBox.CheckedChanged += new System.EventHandler(this.ShowTextBoxCheckedChanged);
+            this.showTitleBox.AutoSize = true;
+            this.showTitleBox.Location = new System.Drawing.Point(9, 129);
+            this.showTitleBox.Name = "showTitleBox";
+            this.showTitleBox.Size = new System.Drawing.Size(72, 17);
+            this.showTitleBox.TabIndex = 2;
+            this.showTitleBox.Text = "Show title";
+            this.showTitleBox.UseVisualStyleBackColor = true;
+            this.showTitleBox.CheckedChanged += new System.EventHandler(this.ShowTitleBoxCheckedChanged);
             // 
             // screenLabel
             // 
             this.screenLabel.AutoSize = true;
-            this.screenLabel.Location = new System.Drawing.Point(228, 224);
+            this.screenLabel.Location = new System.Drawing.Point(227, 228);
             this.screenLabel.Name = "screenLabel";
             this.screenLabel.Size = new System.Drawing.Size(41, 13);
             this.screenLabel.TabIndex = 15;
@@ -197,7 +210,7 @@ namespace Growl.Displays.TranslucentDark
             this.screenBox.DisplayMember = "DeviceName";
             this.screenBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.screenBox.FormattingEnabled = true;
-            this.screenBox.Location = new System.Drawing.Point(343, 218);
+            this.screenBox.Location = new System.Drawing.Point(343, 225);
             this.screenBox.Name = "screenBox";
             this.screenBox.Size = new System.Drawing.Size(98, 21);
             this.screenBox.TabIndex = 16;
@@ -221,12 +234,15 @@ namespace Growl.Displays.TranslucentDark
             // 
             // appearanceBox
             // 
-            this.appearanceBox.Controls.Add(this.descriptionSampleLabel);
-            this.appearanceBox.Controls.Add(this.descriptionChangeFontButton);
-            this.appearanceBox.Controls.Add(this.descriptionFontLabel);
-            this.appearanceBox.Controls.Add(this.titleSampleLabel);
-            this.appearanceBox.Controls.Add(this.titleChangeFontButton);
-            this.appearanceBox.Controls.Add(this.titleFontLabel);
+            this.appearanceBox.Controls.Add(this.descriptionFontSizeBox);
+            this.appearanceBox.Controls.Add(this.descriptionFontSizeLabel);
+            this.appearanceBox.Controls.Add(this.descriptionFontFamilyLabel);
+            this.appearanceBox.Controls.Add(this.showDescriptionBox);
+            this.appearanceBox.Controls.Add(this.titleFontSizeBox);
+            this.appearanceBox.Controls.Add(this.titleSizeLabel);
+            this.appearanceBox.Controls.Add(this.label1);
+            this.appearanceBox.Controls.Add(this.descriptionFontFamilyBox);
+            this.appearanceBox.Controls.Add(this.titleFontFamilyBox);
             this.appearanceBox.Controls.Add(this.containerAlphaBox);
             this.appearanceBox.Controls.Add(this.containerColorBox);
             this.appearanceBox.Controls.Add(this.containerColorLabel);
@@ -234,18 +250,108 @@ namespace Growl.Displays.TranslucentDark
             this.appearanceBox.Controls.Add(this.iconSizeLabel);
             this.appearanceBox.Controls.Add(this.showIconBox);
             this.appearanceBox.Controls.Add(this.iconSizeBox);
-            this.appearanceBox.Controls.Add(this.showTextBox);
+            this.appearanceBox.Controls.Add(this.showTitleBox);
             this.appearanceBox.Controls.Add(this.textColorBox);
             this.appearanceBox.Location = new System.Drawing.Point(3, 3);
             this.appearanceBox.Name = "appearanceBox";
-            this.appearanceBox.Size = new System.Drawing.Size(208, 265);
+            this.appearanceBox.Size = new System.Drawing.Size(208, 301);
             this.appearanceBox.TabIndex = 18;
             this.appearanceBox.TabStop = false;
             this.appearanceBox.Text = "Appearance";
             // 
+            // descriptionFontSizeBox
+            // 
+            this.descriptionFontSizeBox.FormattingEnabled = true;
+            this.descriptionFontSizeBox.Location = new System.Drawing.Point(88, 259);
+            this.descriptionFontSizeBox.Name = "descriptionFontSizeBox";
+            this.descriptionFontSizeBox.Size = new System.Drawing.Size(58, 21);
+            this.descriptionFontSizeBox.TabIndex = 35;
+            this.descriptionFontSizeBox.Validating += new System.ComponentModel.CancelEventHandler(this.DescriptionFontSizeBoxValidating);
+            this.descriptionFontSizeBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontSizeBoxSelectedIndexChanged);
+            this.descriptionFontSizeBox.Validated += new System.EventHandler(this.DescriptionFontSizeBoxValidated);
+            // 
+            // descriptionFontSizeLabel
+            // 
+            this.descriptionFontSizeLabel.AutoSize = true;
+            this.descriptionFontSizeLabel.Location = new System.Drawing.Point(26, 262);
+            this.descriptionFontSizeLabel.Name = "descriptionFontSizeLabel";
+            this.descriptionFontSizeLabel.Size = new System.Drawing.Size(27, 13);
+            this.descriptionFontSizeLabel.TabIndex = 34;
+            this.descriptionFontSizeLabel.Text = "Size";
+            // 
+            // descriptionFontFamilyLabel
+            // 
+            this.descriptionFontFamilyLabel.AutoSize = true;
+            this.descriptionFontFamilyLabel.Location = new System.Drawing.Point(26, 235);
+            this.descriptionFontFamilyLabel.Name = "descriptionFontFamilyLabel";
+            this.descriptionFontFamilyLabel.Size = new System.Drawing.Size(28, 13);
+            this.descriptionFontFamilyLabel.TabIndex = 33;
+            this.descriptionFontFamilyLabel.Text = "Font";
+            // 
+            // showDescriptionBox
+            // 
+            this.showDescriptionBox.AutoSize = true;
+            this.showDescriptionBox.Location = new System.Drawing.Point(9, 209);
+            this.showDescriptionBox.Name = "showDescriptionBox";
+            this.showDescriptionBox.Size = new System.Drawing.Size(107, 17);
+            this.showDescriptionBox.TabIndex = 32;
+            this.showDescriptionBox.Text = "Show description";
+            this.showDescriptionBox.UseVisualStyleBackColor = true;
+            this.showDescriptionBox.CheckedChanged += new System.EventHandler(this.ShowDescriptionBoxCheckedChanged);
+            // 
+            // titleFontSizeBox
+            // 
+            this.titleFontSizeBox.FormattingEnabled = true;
+            this.titleFontSizeBox.Location = new System.Drawing.Point(88, 180);
+            this.titleFontSizeBox.Name = "titleFontSizeBox";
+            this.titleFontSizeBox.Size = new System.Drawing.Size(58, 21);
+            this.titleFontSizeBox.TabIndex = 31;
+            this.titleFontSizeBox.Validating += new System.ComponentModel.CancelEventHandler(this.TitleFontSizeBoxValidating);
+            this.titleFontSizeBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontSizeBoxSelectedIndexChanged);
+            this.titleFontSizeBox.Validated += new System.EventHandler(this.TitleFontSizeBoxValidated);
+            // 
+            // titleSizeLabel
+            // 
+            this.titleSizeLabel.AutoSize = true;
+            this.titleSizeLabel.Location = new System.Drawing.Point(26, 182);
+            this.titleSizeLabel.Name = "titleSizeLabel";
+            this.titleSizeLabel.Size = new System.Drawing.Size(27, 13);
+            this.titleSizeLabel.TabIndex = 30;
+            this.titleSizeLabel.Text = "Size";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(26, 155);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 13);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "Font";
+            // 
+            // descriptionFontFamilyBox
+            // 
+            this.descriptionFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.descriptionFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.descriptionFontFamilyBox.Location = new System.Drawing.Point(88, 232);
+            this.descriptionFontFamilyBox.Name = "descriptionFontFamilyBox";
+            this.descriptionFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.descriptionFontFamilyBox.TabIndex = 27;
+            this.descriptionFontFamilyBox.Text = "fontComboBox1";
+            this.descriptionFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontFamilyBoxSelectedIndexChanged);
+            // 
+            // titleFontFamilyBox
+            // 
+            this.titleFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.titleFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.titleFontFamilyBox.Location = new System.Drawing.Point(88, 152);
+            this.titleFontFamilyBox.Name = "titleFontFamilyBox";
+            this.titleFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.titleFontFamilyBox.TabIndex = 20;
+            this.titleFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontFamilySelectedIndexChanged);
+            // 
             // containerAlphaBox
             // 
-            this.containerAlphaBox.Location = new System.Drawing.Point(158, 19);
+            this.containerAlphaBox.Location = new System.Drawing.Point(129, 19);
             this.containerAlphaBox.Maximum = new decimal(new int[] {
             255,
             0,
@@ -254,19 +360,19 @@ namespace Growl.Displays.TranslucentDark
             this.containerAlphaBox.Name = "containerAlphaBox";
             this.containerAlphaBox.Size = new System.Drawing.Size(44, 20);
             this.containerAlphaBox.TabIndex = 20;
-            this.containerAlphaBox.ValueChanged += new System.EventHandler(this.containerAlphaBox_ValueChanged);
+            this.containerAlphaBox.ValueChanged += new System.EventHandler(this.ContainerAlphaBoxValueChanged);
             // 
             // containerColorBox
             // 
             this.containerColorBox.BackColor = System.Drawing.Color.Transparent;
             this.containerColorBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.containerColorBox.Location = new System.Drawing.Point(117, 19);
+            this.containerColorBox.Location = new System.Drawing.Point(88, 19);
             this.containerColorBox.Name = "containerColorBox";
             this.containerColorBox.Size = new System.Drawing.Size(34, 21);
             this.containerColorBox.TabIndex = 17;
             this.containerColorBox.TabStop = false;
-            this.containerColorBox.Click += new System.EventHandler(this.containerColorBox_Click);
-            this.containerColorBox.Paint += new System.Windows.Forms.PaintEventHandler(this.containerColorBox_Paint);
+            this.containerColorBox.Click += new System.EventHandler(this.ContainerColorBoxClick);
+            this.containerColorBox.Paint += new System.Windows.Forms.PaintEventHandler(this.ContainerColorBoxPaint);
             // 
             // containerColorLabel
             // 
@@ -280,7 +386,7 @@ namespace Growl.Displays.TranslucentDark
             // textColorLabel
             // 
             this.textColorLabel.AutoSize = true;
-            this.textColorLabel.Location = new System.Drawing.Point(26, 130);
+            this.textColorLabel.Location = new System.Drawing.Point(6, 50);
             this.textColorLabel.Name = "textColorLabel";
             this.textColorLabel.Size = new System.Drawing.Size(54, 13);
             this.textColorLabel.TabIndex = 16;
@@ -289,7 +395,7 @@ namespace Growl.Displays.TranslucentDark
             // iconSizeLabel
             // 
             this.iconSizeLabel.AutoSize = true;
-            this.iconSizeLabel.Location = new System.Drawing.Point(26, 76);
+            this.iconSizeLabel.Location = new System.Drawing.Point(26, 103);
             this.iconSizeLabel.Name = "iconSizeLabel";
             this.iconSizeLabel.Size = new System.Drawing.Size(49, 13);
             this.iconSizeLabel.TabIndex = 15;
@@ -298,7 +404,7 @@ namespace Growl.Displays.TranslucentDark
             // showIconBox
             // 
             this.showIconBox.AutoSize = true;
-            this.showIconBox.Location = new System.Drawing.Point(9, 48);
+            this.showIconBox.Location = new System.Drawing.Point(9, 75);
             this.showIconBox.Name = "showIconBox";
             this.showIconBox.Size = new System.Drawing.Size(76, 17);
             this.showIconBox.TabIndex = 0;
@@ -308,7 +414,7 @@ namespace Growl.Displays.TranslucentDark
             // 
             // iconSizeBox
             // 
-            this.iconSizeBox.Location = new System.Drawing.Point(117, 74);
+            this.iconSizeBox.Location = new System.Drawing.Point(88, 101);
             this.iconSizeBox.Maximum = new decimal(new int[] {
             10240,
             0,
@@ -346,67 +452,11 @@ namespace Growl.Displays.TranslucentDark
                     "ing fullscreen. The notifications will be queued until the other application is " +
                     "not running fullscreen anymore.");
             this.PauseOnFullscreenBox.UseVisualStyleBackColor = true;
-            this.PauseOnFullscreenBox.CheckedChanged += new System.EventHandler(this.PauseOnFullscreenBox_CheckedChanged);
-            // 
-            // titleFontLabel
-            // 
-            this.titleFontLabel.AutoSize = true;
-            this.titleFontLabel.Location = new System.Drawing.Point(26, 159);
-            this.titleFontLabel.Name = "titleFontLabel";
-            this.titleFontLabel.Size = new System.Drawing.Size(48, 13);
-            this.titleFontLabel.TabIndex = 21;
-            this.titleFontLabel.Text = "Title font";
-            // 
-            // titleChangeFontButton
-            // 
-            this.titleChangeFontButton.Location = new System.Drawing.Point(117, 154);
-            this.titleChangeFontButton.Name = "titleChangeFontButton";
-            this.titleChangeFontButton.Size = new System.Drawing.Size(85, 23);
-            this.titleChangeFontButton.TabIndex = 22;
-            this.titleChangeFontButton.Text = "Change...";
-            this.titleChangeFontButton.UseVisualStyleBackColor = true;
-            this.titleChangeFontButton.Click += new System.EventHandler(this.titleChangeFontButton_Click);
-            // 
-            // titleSampleLabel
-            // 
-            this.titleSampleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.titleSampleLabel.Location = new System.Drawing.Point(29, 180);
-            this.titleSampleLabel.Name = "titleSampleLabel";
-            this.titleSampleLabel.Size = new System.Drawing.Size(173, 23);
-            this.titleSampleLabel.TabIndex = 23;
-            this.titleSampleLabel.Text = "Sample title";
+            this.PauseOnFullscreenBox.CheckedChanged += new System.EventHandler(this.PauseOnFullscreenBoxCheckedChanged);
             // 
             // fontDialog
             // 
-            this.fontDialog.AllowScriptChange = false;
             this.fontDialog.ShowEffects = false;
-            // 
-            // descriptionSampleLabel
-            // 
-            this.descriptionSampleLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.descriptionSampleLabel.Location = new System.Drawing.Point(29, 232);
-            this.descriptionSampleLabel.Name = "descriptionSampleLabel";
-            this.descriptionSampleLabel.Size = new System.Drawing.Size(173, 23);
-            this.descriptionSampleLabel.TabIndex = 26;
-            this.descriptionSampleLabel.Text = "Sample description";
-            // 
-            // descriptionChangeFontButton
-            // 
-            this.descriptionChangeFontButton.Location = new System.Drawing.Point(117, 206);
-            this.descriptionChangeFontButton.Name = "descriptionChangeFontButton";
-            this.descriptionChangeFontButton.Size = new System.Drawing.Size(85, 23);
-            this.descriptionChangeFontButton.TabIndex = 25;
-            this.descriptionChangeFontButton.Text = "Change...";
-            this.descriptionChangeFontButton.UseVisualStyleBackColor = true;
-            // 
-            // descriptionFontLabel
-            // 
-            this.descriptionFontLabel.AutoSize = true;
-            this.descriptionFontLabel.Location = new System.Drawing.Point(26, 211);
-            this.descriptionFontLabel.Name = "descriptionFontLabel";
-            this.descriptionFontLabel.Size = new System.Drawing.Size(81, 13);
-            this.descriptionFontLabel.TabIndex = 24;
-            this.descriptionFontLabel.Text = "Description font";
             // 
             // TranslucentDarkSettingsPanel
             // 
@@ -449,6 +499,15 @@ namespace Growl.Displays.TranslucentDark
             screenBox.Items.AddRange(Screen.AllScreens);
             if (screenBox.Items.Count == 0)
                 screenBox.Items.Add("Default");
+
+            titleFontSizeBox.SelectedIndexChanged -= TitleFontSizeBoxSelectedIndexChanged;
+            titleFontSizeBox.DataSource = fontSizes.Clone();
+            titleFontSizeBox.SelectedIndexChanged += TitleFontSizeBoxSelectedIndexChanged;
+
+            descriptionFontSizeBox.SelectedIndexChanged -= DescriptionFontSizeBoxSelectedIndexChanged;
+            descriptionFontSizeBox.DataSource = fontSizes.Clone();
+            descriptionFontSizeBox.SelectedIndexChanged += DescriptionFontSizeBoxSelectedIndexChanged;
+
             LoadSettings();
         }
 
@@ -469,7 +528,6 @@ namespace Growl.Displays.TranslucentDark
             else
                 widthBox.Value = 256;
             iconSizeBox.Value = (decimal)Settings.IconSize;
-            showTextBox.Checked = Settings.ShowText;
             showIconBox.Checked = Settings.ShowIcon;
 
             int screenIndex = Settings.Screen;
@@ -477,14 +535,48 @@ namespace Growl.Displays.TranslucentDark
                 screenIndex = 0;
             screenBox.SelectedIndex = screenIndex;
 
-            //textAlphaBox.Value = Settings.TextColor.A;
             containerAlphaBox.Value = Settings.ContainerColor.A;
-            //notificationAlphaBox.Value = Settings.NotificationColor.A;
 
             PauseOnFullscreenBox.Checked = Settings.PauseOnFullscreen;
 
-            if (Settings.TitleFontFamily != null)
-                titleSampleLabel.Font = new Font(Settings.TitleFontFamily, (float)Settings.TitleFontSize);
+            showTitleBox.Checked = Settings.ShowTitle;
+            showDescriptionBox.Checked = Settings.ShowDescription;
+
+            titleFontFamilyBox.SelectedFontFamily = GetFontFamily(Settings.TitleFontFamily);
+            descriptionFontFamilyBox.SelectedFontFamily = GetFontFamily(Settings.DescriptionFontFamily);
+
+            titleFontSizeBox.Text = GetFontSize(Settings.TitleFontSize).ToString();
+            descriptionFontSizeBox.Text = GetFontSize(Settings.DescriptionFontSize).ToString();
+        }
+
+        private static FontFamily GetFontFamily(string name)
+        {
+            if (name == null)
+                return GetDefaultFontFamily();
+            try
+            {
+                return new FontFamily(name);
+            }
+            catch (ArgumentException)
+            {
+                return GetDefaultFontFamily();
+            }
+        }
+
+        private static double GetFontSize(double size)
+        {
+            return double.IsNaN(size) ? GetDefaultFontSize() : size;
+        }
+
+        private static FontFamily GetDefaultFontFamily()
+        {
+            string defaultFontFamilyName = System.Windows.SystemFonts.MessageFontFamily.Source;
+            return new FontFamily(defaultFontFamilyName);
+        }
+
+        private static double GetDefaultFontSize()
+        {
+            return System.Windows.SystemFonts.MessageFontSize;
         }
 
         private static void SetSelectedValue<T>(ComboBox box, T value)
@@ -542,35 +634,25 @@ namespace Growl.Displays.TranslucentDark
             iconSizeBox.Enabled = showIconBox.Checked;
         }
 
-        private void ShowTextBoxCheckedChanged(object sender, EventArgs e)
-        {
-            Settings.ShowText = showTextBox.Checked;
-        }
-
         private void ScreenBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             Settings.Screen = screenBox.SelectedIndex;
         }
 
-        private void textColorBox_Paint(object sender, PaintEventArgs e)
+        private void TextColorBoxPaint(object sender, PaintEventArgs e)
         {
             PaintColorBox(e.Graphics, Settings.TextColor);
         }
 
-        /*private void notificationColorBox_Paint(object sender, PaintEventArgs e)
-        {
-            PaintColorBox(e.Graphics, Settings.NotificationColor);
-        }*/
-
-        private void containerColorBox_Paint(object sender, PaintEventArgs e)
+        private void ContainerColorBoxPaint(object sender, PaintEventArgs e)
         {
             PaintColorBox(e.Graphics, Settings.ContainerColor);
         }
 
-        TextureBrush transparencyBrush = null;
+        TextureBrush _transparencyBrush = null;
         private void PaintColorBox(Graphics g, Color color)
         {
-            if (transparencyBrush == null)
+            if (_transparencyBrush == null)
             {
                 Brush grayBrush = Brushes.LightGray;
                 Bitmap transparencyBitmap = new Bitmap(16, 16);
@@ -580,15 +662,15 @@ namespace Growl.Displays.TranslucentDark
                     r.FillRectangle(grayBrush, 0, 0, 8, 8);
                     r.FillRectangle(grayBrush, 8, 8, 8, 8);
                 }
-                transparencyBrush = new TextureBrush(transparencyBitmap, System.Drawing.Drawing2D.WrapMode.Tile);
+                _transparencyBrush = new TextureBrush(transparencyBitmap, System.Drawing.Drawing2D.WrapMode.Tile);
             }
 
             RectangleF rectangle = new RectangleF(0, 0, g.ClipBounds.X + g.ClipBounds.Width, g.ClipBounds.Y + g.ClipBounds.Height);
-            g.FillRectangle(transparencyBrush, rectangle);
+            g.FillRectangle(_transparencyBrush, rectangle);
             g.FillRectangle(new SolidBrush(color), rectangle);
         }
 
-        private void textColorBox_Click(object sender, EventArgs e)
+        private void TextColorBoxClick(object sender, EventArgs e)
         {
             colorDialog.Color = Color.FromArgb(255, Settings.TextColor);
             if (colorDialog.ShowDialog(this) == DialogResult.OK)
@@ -598,7 +680,7 @@ namespace Growl.Displays.TranslucentDark
             }
         }
 
-        private void containerColorBox_Click(object sender, EventArgs e)
+        private void ContainerColorBoxClick(object sender, EventArgs e)
         {
             colorDialog.Color = Color.FromArgb(255, Settings.ContainerColor);
             if (colorDialog.ShowDialog(this) == DialogResult.OK)
@@ -608,47 +690,75 @@ namespace Growl.Displays.TranslucentDark
             }
         }
 
-        /*private void notificationColorBox_Click(object sender, EventArgs e)
-        {
-            colorDialog.Color = Color.FromArgb(255, Settings.NotificationColor);
-            if (colorDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                Settings.NotificationColor = Color.FromArgb((int)notificationAlphaBox.Value, colorDialog.Color);
-                notificationColorBox.Invalidate();
-            }
-        }*/
-
-        /*private void textAlphaBox_ValueChanged(object sender, EventArgs e)
-        {
-            Settings.TextColor = Color.FromArgb((int)textAlphaBox.Value, Settings.TextColor);
-            textColorBox.Invalidate();
-        }*/
-
-        private void containerAlphaBox_ValueChanged(object sender, EventArgs e)
+        private void ContainerAlphaBoxValueChanged(object sender, EventArgs e)
         {
             Settings.ContainerColor = Color.FromArgb((int)containerAlphaBox.Value, Settings.ContainerColor);
             containerColorBox.Invalidate();
         }
 
-        private void PauseOnFullscreenBox_CheckedChanged(object sender, EventArgs e)
+        private void PauseOnFullscreenBoxCheckedChanged(object sender, EventArgs e)
         {
             Settings.PauseOnFullscreen = PauseOnFullscreenBox.Checked;
         }
 
-        private void titleChangeFontButton_Click(object sender, EventArgs e)
+        private void ShowTitleBoxCheckedChanged(object sender, EventArgs e)
         {
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
-                Settings.TitleFontFamily = fontDialog.Font.FontFamily.Name;
-                Settings.TitleFontSize = (double)fontDialog.Font.SizeInPoints;
-                titleSampleLabel.Font = fontDialog.Font;
-            }
+            Settings.ShowTitle = showTitleBox.Checked;
+            titleFontFamilyBox.Enabled = showTitleBox.Checked;
+            titleFontSizeBox.Enabled = showTitleBox.Checked;
         }
 
-        /*private void notificationAlphaBox_ValueChanged(object sender, EventArgs e)
+        private void ShowDescriptionBoxCheckedChanged(object sender, EventArgs e)
         {
-            Settings.NotificationColor = Color.FromArgb((int)notificationAlphaBox.Value, Settings.NotificationColor);
-            notificationColorBox.Invalidate();
-        }*/
+            Settings.ShowDescription = showDescriptionBox.Checked;
+            descriptionFontFamilyBox.Enabled = showDescriptionBox.Checked;
+            descriptionFontSizeBox.Enabled = showDescriptionBox.Checked;
+        }
+
+        private void TitleFontFamilySelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.TitleFontFamily = titleFontFamilyBox.SelectedFontFamily.Name;
+        }
+
+        private void DescriptionFontFamilyBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.DescriptionFontFamily = descriptionFontFamilyBox.SelectedFontFamily.Name;
+        }
+
+        private void TitleFontSizeBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.TitleFontSize = (double)titleFontSizeBox.SelectedValue;
+        }
+
+        private void DescriptionFontSizeBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.DescriptionFontSize = (double)descriptionFontSizeBox.SelectedValue;
+        }
+
+        private void TitleFontSizeBoxValidating(object sender, CancelEventArgs e)
+        {
+            double fontSize;
+            e.Cancel = !double.TryParse(titleFontSizeBox.Text, out fontSize);
+        }
+
+        private void DescriptionFontSizeBoxValidating(object sender, CancelEventArgs e)
+        {
+            double fontSize;
+            e.Cancel = !double.TryParse(descriptionFontSizeBox.Text, out fontSize);
+        }
+
+        private void DescriptionFontSizeBoxValidated(object sender, EventArgs e)
+        {
+            double fontSize;
+            if (double.TryParse(descriptionFontSizeBox.Text, out fontSize))
+                Settings.DescriptionFontSize = fontSize;
+        }
+
+        private void TitleFontSizeBoxValidated(object sender, EventArgs e)
+        {
+            double fontSize;
+            if (double.TryParse(titleFontSizeBox.Text, out fontSize))
+                Settings.TitleFontSize = fontSize;
+        }
     }
 }

@@ -24,6 +24,10 @@ namespace Growl.Displays.Wpf
             throw new NotImplementedException("The method CreateSettings should be overridden and an display-specific settings instance should be created.");
         }
 
+        public virtual void Load()
+        {
+        }
+
         private void SettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             SaveSetting(e.PropertyName, GetSettings()[e.PropertyName]);
