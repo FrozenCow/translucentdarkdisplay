@@ -11,7 +11,10 @@ Requirements
 
 Installation
 ============
-Create the folder 'C:\Program Files\Growl for Windows\Displays\Translucent Dark Display' and copy the files from this package there (assumed 'C:\Program Files\Growl for Windows\' is your Growl for Windows installation directory).
+Create the folder:
+XP: "C:\Documents and Settings\{USER}\Local Settings\Application Data\Growl\2.0.0.0\Displays\Translucent Dark Display"
+Vista or higher: "C:\Users\{USER}\AppData\Local\Growl\2.0.0.0\Displays\Translucent Dark Display"
+and copy the files from this package there (assumed {USER} is your username).
 
 Changelog
 =========
