@@ -507,8 +507,6 @@ namespace Growl.Displays.TranslucentDark
             descriptionFontSizeBox.SelectedIndexChanged -= DescriptionFontSizeBoxSelectedIndexChanged;
             descriptionFontSizeBox.DataSource = fontSizes.Clone();
             descriptionFontSizeBox.SelectedIndexChanged += DescriptionFontSizeBoxSelectedIndexChanged;
-
-            LoadSettings();
         }
 
         protected override SettingsWrapper CreateSettings(IDictionary<string, object> settings)
@@ -516,10 +514,15 @@ namespace Growl.Displays.TranslucentDark
             return new TranslucentDarkSettings(settings);
         }
 
+        public override void Load()
+        {
+            base.Load();
+            LoadSettings();
+        }
+
         private void LoadSettings()
         {
             textColorBox.BackColor = Color.FromArgb(Settings.TextColor.A, Settings.TextColor.R, Settings.TextColor.G, Settings.TextColor.B);
-            //notificationColorBox.BackColor = Color.FromArgb(Settings.ContainerColor.A, Settings.ContainerColor.R, Settings.ContainerColor.G, Settings.ContainerColor.B);
             SetSelectedValue(horizontalPlacementBox, Settings.HorizontalPlacement);
             SetSelectedValue(verticalPlacementBox, Settings.VerticalPlacement);
             fixedWidthBox.Checked = Settings.FixedWidth >= 0.0;

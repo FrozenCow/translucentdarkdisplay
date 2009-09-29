@@ -49,6 +49,14 @@ namespace Growl.Displays.Wpf
             Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(CloseNotifications));
         }
 
+        public override void Load()
+        {
+            base.Load();
+            WpfSettingsPanelBase settingsPanel = SettingsPanel as WpfSettingsPanelBase;
+            if (settingsPanel != null)
+                settingsPanel.Load();
+        }
+
         #endregion
 
         #region Helper methods
