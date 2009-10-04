@@ -55,16 +55,23 @@ namespace Growl.Displays.TranslucentDark
             var settings = new TranslucentDarkSettings(SettingsCollection);
             if (settings.PauseOnFullscreen && FullscreenDetector.IsFullscreen())
             {
-                lock (PendingNotifications)
-                {
-                    notification.Status = GrowlNotificationStatus.Pending;
-                    PendingNotifications.Add(notification);
-                    if (pendingTimer == null)
-                        pendingTimer = new Timer(PendingTimerCallback, null, TimeSpan.FromSeconds(10),  TimeSpan.FromSeconds(10));
-                }
+                QueueNotification(notification);
             }
             else
+            {
                 base.OpenNotification(notification);
+            }
+        }
+
+        private void QueueNotification(GrowlNotification notification)
+        {
+            lock (PendingNotifications)
+            {
+                notification.Status = GrowlNotificationStatus.Pending;
+                PendingNotifications.Add(notification);
+                if (pendingTimer == null)
+                    pendingTimer = new Timer(PendingTimerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
+            }
         }
 
         private void PendingTimerCallback(object state)

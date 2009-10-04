@@ -443,7 +443,7 @@ namespace Growl.Displays.TranslucentDark
             // PauseOnFullscreenBox
             // 
             this.PauseOnFullscreenBox.AutoSize = true;
-            this.PauseOnFullscreenBox.Location = new System.Drawing.Point(7, 20);
+            this.PauseOnFullscreenBox.Location = new System.Drawing.Point(12, 19);
             this.PauseOnFullscreenBox.Name = "PauseOnFullscreenBox";
             this.PauseOnFullscreenBox.Size = new System.Drawing.Size(119, 17);
             this.PauseOnFullscreenBox.TabIndex = 0;
@@ -514,14 +514,9 @@ namespace Growl.Displays.TranslucentDark
             return new TranslucentDarkSettings(settings);
         }
 
-        public override void Load()
+        public override void LoadSettings()
         {
-            base.Load();
-            LoadSettings();
-        }
-
-        private void LoadSettings()
-        {
+            base.LoadSettings();
             textColorBox.BackColor = Color.FromArgb(Settings.TextColor.A, Settings.TextColor.R, Settings.TextColor.G, Settings.TextColor.B);
             SetSelectedValue(horizontalPlacementBox, Settings.HorizontalPlacement);
             SetSelectedValue(verticalPlacementBox, Settings.VerticalPlacement);

@@ -54,7 +54,7 @@ namespace Growl.Displays.Wpf
             base.Load();
             WpfSettingsPanelBase settingsPanel = SettingsPanel as WpfSettingsPanelBase;
             if (settingsPanel != null)
-                settingsPanel.Load();
+                settingsPanel.LoadSettings();
         }
 
         #endregion
