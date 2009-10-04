@@ -52,7 +52,7 @@ namespace Growl.Displays.TranslucentDark
         /// <summary>
         /// The actual combobox.
         /// </summary>
-        private ComboBox _comboBox = null;
+        private ComboBox _comboBox;
 
         #endregion
 
@@ -105,6 +105,7 @@ namespace Growl.Displays.TranslucentDark
         // ******************************************************************
 
         private FontFamily selectedFontFamily;
+
         /// <summary>
         /// Gets and sets the selected font family.
         /// </summary>
@@ -123,7 +124,7 @@ namespace Growl.Displays.TranslucentDark
             set
             {
                 selectedFontFamily = value;
-                
+
                 if (_comboBox != null)
                     _comboBox.SelectedItem = value;
             }
@@ -201,6 +202,7 @@ namespace Growl.Displays.TranslucentDark
         } // End OnHandleCreated()
 
         // ******************************************************************
+
         #endregion
 
         // ******************************************************************
@@ -342,7 +344,6 @@ namespace Growl.Displays.TranslucentDark
             FontFamily[] ff = FontFamily.Families;
             for (int i = 0; i < ff.Length; i++)
                 _comboBox.Items.Add(ff[i]);
-            
         }
 
         #endregion

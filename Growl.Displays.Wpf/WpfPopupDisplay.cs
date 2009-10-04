@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Growl.Displays.Wpf
 {
@@ -115,7 +113,7 @@ namespace Growl.Displays.Wpf
             if (NotificationsPopup == null)
                 return;
             var notifications = new List<GrowlNotification>(NotificationsPopup.Notifications
-                .Where(CanCloseNotification));
+                                                                .Where(CanCloseNotification));
             foreach (GrowlNotification notification in notifications)
                 CloseNotification(notification);
             base.CloseNotifications();
@@ -131,16 +129,18 @@ namespace Growl.Displays.Wpf
         #endregion
 
         #region Helper methods
+
         protected virtual bool CanCloseNotification(GrowlNotification notification)
         {
             return notification.Status != GrowlNotificationStatus.Closing ||
                    notification.Status != GrowlNotificationStatus.Closed;
         }
+
         #endregion
     }
 
     public abstract class WpfPopupDisplay<T> : WpfPopupDisplay
-    where T : GrowlPopup, new()
+        where T : GrowlPopup, new()
     {
         protected override GrowlPopup CreatePopup()
         {

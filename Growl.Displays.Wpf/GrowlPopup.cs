@@ -143,13 +143,16 @@ namespace Growl.Displays.Wpf
         #region Events
 
         #region NotificationOpened Event
+
         protected virtual void OnNotificationOpened(GrowlNotificationEventArgs e)
         {
             if (NotificationOpened == null)
                 return;
             NotificationOpened(this, e);
         }
+
         public event EventHandler<GrowlNotificationEventArgs> NotificationOpened;
+
         #endregion
 
         #region NotificationClicked Event

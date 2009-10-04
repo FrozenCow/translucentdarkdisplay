@@ -13,6 +13,7 @@ namespace Growl.Displays.Wpf
         }
 
         #region Helper Methods
+
         protected T Get<T>(string key, T defaultValue)
         {
             object valueObj;
@@ -29,9 +30,11 @@ namespace Growl.Displays.Wpf
             _settings[key] = value;
             OnPropertyChanged(new PropertyChangedEventArgs(key));
         }
+
         #endregion
 
         #region Events
+
         #region PropertyChanging Event
 
         protected virtual void OnPropertyChanging(PropertyChangingEventArgs e)
@@ -57,6 +60,7 @@ namespace Growl.Displays.Wpf
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
+
         #endregion
     }
 }

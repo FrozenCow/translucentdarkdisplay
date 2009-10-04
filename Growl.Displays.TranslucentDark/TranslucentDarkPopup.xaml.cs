@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,11 +11,13 @@ namespace Growl.Displays.TranslucentDark
     public partial class TranslucentDarkPopup
     {
         #region Properties
+
         public double NotificationWidth
         {
             get { return (double)GetValue(NotificationWidthProperty); }
             set { SetValue(NotificationWidthProperty, value); }
         }
+
         public static readonly DependencyProperty NotificationWidthProperty = DependencyProperty.Register("NotificationWidth", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(256.0, FrameworkPropertyMetadataOptions.None));
 
         public double IconSize
@@ -24,6 +25,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (double)GetValue(IconSizeProperty); }
             set { SetValue(IconSizeProperty, value); }
         }
+
         public static readonly DependencyProperty IconSizeProperty = DependencyProperty.Register("IconSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(48.0, FrameworkPropertyMetadataOptions.None));
 
         public Color TextColor
@@ -31,6 +33,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (Color)GetValue(TextColorProperty); }
             set { SetValue(TextColorProperty, value); }
         }
+
         public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register("TextColor", typeof(Color), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.None));
 
         public Color ContainerColor
@@ -38,6 +41,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (Color)GetValue(ContainerColorProperty); }
             set { SetValue(ContainerColorProperty, value); }
         }
+
         public static readonly DependencyProperty ContainerColorProperty = DependencyProperty.Register("ContainerColor", typeof(Color), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.None));
 
         public bool ShowIcon
@@ -45,6 +49,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (bool)GetValue(ShowIconProperty); }
             set { SetValue(ShowIconProperty, value); }
         }
+
         public static readonly DependencyProperty ShowIconProperty = DependencyProperty.Register("ShowIcon", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
         public bool ShowTitle
@@ -52,6 +57,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (bool)GetValue(ShowTitleProperty); }
             set { SetValue(ShowTitleProperty, value); }
         }
+
         public static readonly DependencyProperty ShowTitleProperty = DependencyProperty.Register("ShowTitle", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
         public bool ShowDescription
@@ -59,6 +65,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (bool)GetValue(ShowDescriptionProperty); }
             set { SetValue(ShowDescriptionProperty, value); }
         }
+
         public static readonly DependencyProperty ShowDescriptionProperty = DependencyProperty.Register("ShowDescription", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.None));
 
         public FontFamily TitleFontFamily
@@ -66,6 +73,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (FontFamily)GetValue(TitleFontFamilyProperty); }
             set { SetValue(TitleFontFamilyProperty, value); }
         }
+
         public static readonly DependencyProperty TitleFontFamilyProperty = DependencyProperty.Register("TitleFontFamily", typeof(FontFamily), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public double TitleFontSize
@@ -73,6 +81,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (double)GetValue(TitleFontSizeProperty); }
             set { SetValue(TitleFontSizeProperty, value); }
         }
+
         public static readonly DependencyProperty TitleFontSizeProperty = DependencyProperty.Register("TitleFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
 
         public FontFamily DescriptionFontFamily
@@ -80,6 +89,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (FontFamily)GetValue(DescriptionFontFamilyProperty); }
             set { SetValue(DescriptionFontFamilyProperty, value); }
         }
+
         public static readonly DependencyProperty DescriptionFontFamilyProperty = DependencyProperty.Register("DescriptionFontFamily", typeof(FontFamily), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public double DescriptionFontSize
@@ -87,6 +97,7 @@ namespace Growl.Displays.TranslucentDark
             get { return (double)GetValue(DescriptionFontSizeProperty); }
             set { SetValue(DescriptionFontSizeProperty, value); }
         }
+
         public static readonly DependencyProperty DescriptionFontSizeProperty = DependencyProperty.Register("DescriptionFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
 
         #endregion

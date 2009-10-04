@@ -16,6 +16,7 @@ namespace Growl.Displays.Wpf
             get { return (Notification)GetValue(OriginalNotificationProperty); }
             set { SetValue(OriginalNotificationProperty, value); }
         }
+
         public static readonly DependencyProperty OriginalNotificationProperty = DependencyProperty.Register("OriginalNotification", typeof(Notification), typeof(GrowlNotification), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public string Title
@@ -23,6 +24,7 @@ namespace Growl.Displays.Wpf
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
+
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(GrowlNotification), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public string Description
@@ -30,6 +32,7 @@ namespace Growl.Displays.Wpf
             get { return (string)GetValue(DescriptionProperty); }
             set { SetValue(DescriptionProperty, value); }
         }
+
         public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register("Description", typeof(string), typeof(GrowlNotification), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public bool IsSticky
@@ -37,6 +40,7 @@ namespace Growl.Displays.Wpf
             get { return (bool)GetValue(IsStickyProperty); }
             set { SetValue(IsStickyProperty, value); }
         }
+
         public static readonly DependencyProperty IsStickyProperty = DependencyProperty.Register("IsSticky", typeof(bool), typeof(GrowlNotification), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
 
         public TimeSpan TimeoutDuration
@@ -44,6 +48,7 @@ namespace Growl.Displays.Wpf
             get { return (TimeSpan)GetValue(TimeoutDurationProperty); }
             set { SetValue(TimeoutDurationProperty, value); }
         }
+
         public static readonly DependencyProperty TimeoutDurationProperty = DependencyProperty.Register("TimeoutDuration", typeof(TimeSpan), typeof(GrowlNotification), new FrameworkPropertyMetadata(TimeSpan.FromSeconds(3), FrameworkPropertyMetadataOptions.None));
 
         public ImageSource Image
@@ -51,6 +56,7 @@ namespace Growl.Displays.Wpf
             get { return (ImageSource)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
+
         public static readonly DependencyProperty ImageProperty = DependencyProperty.Register("Image", typeof(ImageSource), typeof(GrowlNotification), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public IDictionary<string, string> CustomTextAttributes
@@ -58,6 +64,7 @@ namespace Growl.Displays.Wpf
             get { return (IDictionary<string, string>)GetValue(CustomTextAttributesProperty); }
             private set { SetValue(CustomTextAttributesProperty, value); }
         }
+
         public static readonly DependencyProperty CustomTextAttributesProperty = DependencyProperty.Register("CustomTextAttributes", typeof(IDictionary<string, string>), typeof(GrowlNotification), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 
         public GrowlNotificationStatus Status { get; set; }

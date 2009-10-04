@@ -11,6 +11,7 @@ namespace Growl.Displays.Wpf
     public static class PopupDocker
     {
         #region DockedScreen Property
+
         public static readonly DependencyProperty DockedScreenProperty = DependencyProperty.RegisterAttached("DockedScreen", typeof(int), typeof(WindowDocker), new PropertyMetadata(-1, DockedScreenChanged));
 
         public static int GetDockedScreen(DependencyObject obj)
@@ -22,9 +23,11 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockedScreenProperty, value);
         }
+
         #endregion
 
         #region DockHorizontal Property
+
         public static readonly DependencyProperty DockHorizontalProperty = DependencyProperty.RegisterAttached("DockHorizontal", typeof(HorizontalAlignment), typeof(WindowDocker), new PropertyMetadata(HorizontalAlignment.Stretch, DockHorizontalChanged));
 
         public static HorizontalAlignment GetDockHorizontal(DependencyObject obj)
@@ -36,9 +39,11 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockHorizontalProperty, value);
         }
+
         #endregion
 
         #region DockVertical Property
+
         public static readonly DependencyProperty DockVerticalProperty = DependencyProperty.RegisterAttached("DockVertical", typeof(VerticalAlignment), typeof(WindowDocker), new PropertyMetadata(VerticalAlignment.Stretch, DockVerticalChanged));
 
         public static VerticalAlignment GetDockVertical(DependencyObject obj)
@@ -50,6 +55,7 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockVerticalProperty, value);
         }
+
         #endregion
 
         private static void DockedScreenChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

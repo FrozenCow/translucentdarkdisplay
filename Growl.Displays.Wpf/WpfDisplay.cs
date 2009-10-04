@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Growl.CoreLibrary;
 using Growl.DisplayStyle;
-using System.Diagnostics;
 
 namespace Growl.Displays.Wpf
 {
@@ -22,11 +22,11 @@ namespace Growl.Displays.Wpf
         {
             WpfApplicationManager.StartWpf();
 
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new Action<Notification>(delegate(Notification n)
-                                                                           {
-                                                                               var growlNotification = CreateGrowlNotification(n);
-                                                                               OpenNotification(growlNotification);
-                                                                           }), notification);
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action<Notification>(delegate(Notification n)
+                                                                                                      {
+                                                                                                          var growlNotification = CreateGrowlNotification(n);
+                                                                                                          OpenNotification(growlNotification);
+                                                                                                      }), notification);
             return false;
         }
 
@@ -34,19 +34,19 @@ namespace Growl.Displays.Wpf
         {
             if (Application.Current == null)
                 return;
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
-                                                             {
-                                                                 GrowlNotification lastNotification = GetLastNotification();
-                                                                 if (lastNotification != null)
-                                                                     CloseNotification(lastNotification);
-                                                             }));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                                                                                        {
+                                                                                            GrowlNotification lastNotification = GetLastNotification();
+                                                                                            if (lastNotification != null)
+                                                                                                CloseNotification(lastNotification);
+                                                                                        }));
         }
 
         public override void CloseAllOpenNotifications()
         {
             if (Application.Current == null)
                 return;
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(CloseNotifications));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(CloseNotifications));
         }
 
         public override void Load()
@@ -96,7 +96,7 @@ namespace Growl.Displays.Wpf
                 {
                     image.EndInit();
                 }
-                // This is very hacky, but the MSDN documentation does not state all of the possible exceptions.
+                    // This is very hacky, but the MSDN documentation does not state all of the possible exceptions.
                 catch
                 {
                     image = null;
@@ -115,7 +115,7 @@ namespace Growl.Displays.Wpf
                     {
                         image.EndInit();
                     }
-                    // Again very hacky. Again for the same reason.
+                        // Again very hacky. Again for the same reason.
                     catch
                     {
                         image = null;
@@ -141,7 +141,7 @@ namespace Growl.Displays.Wpf
             // Don't look! This code is ugly!
             _timeouts.AddTimeout(
                 duration,
-                delegate { Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, new Action<GrowlNotification>(TimeoutNotification), notification); },
+                delegate { Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action<GrowlNotification>(TimeoutNotification), notification); },
                 notification);
         }
 

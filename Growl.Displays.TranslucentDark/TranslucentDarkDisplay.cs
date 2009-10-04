@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Media;
-using Growl.Displays.Wpf;
-using System.Windows.Forms;
-using Timer = System.Threading.Timer;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
-using System;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
+using Growl.Displays.Wpf;
+using MessageBox=System.Windows.Forms.MessageBox;
 
 namespace Growl.Displays.TranslucentDark
 {
@@ -42,7 +41,7 @@ namespace Growl.Displays.TranslucentDark
         #endregion
 
         public IList<GrowlNotification> PendingNotifications { get; private set; }
-        private Timer pendingTimer;
+        private Timer _pendingTimer;
 
         public TranslucentDarkDisplay()
         {
@@ -69,8 +68,8 @@ namespace Growl.Displays.TranslucentDark
             {
                 notification.Status = GrowlNotificationStatus.Pending;
                 PendingNotifications.Add(notification);
-                if (pendingTimer == null)
-                    pendingTimer = new Timer(PendingTimerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
+                if (_pendingTimer == null)
+                    _pendingTimer = new Timer(PendingTimerCallback, null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
             }
         }
 
@@ -82,18 +81,18 @@ namespace Growl.Displays.TranslucentDark
             IList<GrowlNotification> pendingNotifications;
             lock (PendingNotifications)
             {
-                pendingTimer.Dispose();
-                pendingTimer = null;
+                _pendingTimer.Dispose();
+                _pendingTimer = null;
 
                 pendingNotifications = new List<GrowlNotification>(PendingNotifications);
                 PendingNotifications.Clear();
             }
 
-            System.Windows.Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-                                                                      {
-                                                                          foreach (GrowlNotification notification in pendingNotifications)
-                                                                              OpenNotification(notification);
-                                                                      }));
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+                                                                                             {
+                                                                                                 foreach (GrowlNotification notification in pendingNotifications)
+                                                                                                     OpenNotification(notification);
+                                                                                             }));
         }
 
         protected override GrowlPopup CreatePopup()
@@ -129,16 +128,16 @@ namespace Growl.Displays.TranslucentDark
             {
                 return new FontFamily(name);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
                 return null;
             }
         }
 
-        private static System.Windows.Media.Color WfColorToWpfColor(System.Drawing.Color c)
+        private static Color WfColorToWpfColor(System.Drawing.Color c)
         {
-            return System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B);
+            return Color.FromArgb(c.A, c.R, c.G, c.B);
         }
     }
 }

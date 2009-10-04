@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Growl.Displays.Wpf
 {
@@ -83,7 +84,7 @@ namespace Growl.Displays.Wpf
         private static void DispatchAction(Action action)
         {
             if (!Application.Dispatcher.CheckAccess())
-                Application.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal, action);
+                Application.Dispatcher.Invoke(DispatcherPriority.Normal, action);
             else
                 action();
         }

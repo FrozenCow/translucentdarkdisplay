@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Forms;
 using HorizontalAlignment=System.Windows.HorizontalAlignment;
@@ -10,6 +11,7 @@ namespace Growl.Displays.Wpf
     public static class WindowDocker
     {
         #region DockedScreen Property
+
         public static readonly DependencyProperty DockedScreenProperty = DependencyProperty.RegisterAttached("DockedScreen", typeof(int), typeof(WindowDocker), new PropertyMetadata(-1, DockedScreenChanged));
 
         public static int GetDockedScreen(DependencyObject obj)
@@ -21,9 +23,11 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockedScreenProperty, value);
         }
+
         #endregion
 
         #region DockHorizontal Property
+
         public static readonly DependencyProperty DockHorizontalProperty = DependencyProperty.RegisterAttached("DockHorizontal", typeof(HorizontalAlignment), typeof(WindowDocker), new PropertyMetadata(HorizontalAlignment.Stretch, DockHorizontalChanged));
 
         public static HorizontalAlignment GetDockHorizontal(DependencyObject obj)
@@ -35,9 +39,11 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockHorizontalProperty, value);
         }
+
         #endregion
 
         #region DockVertical Property
+
         public static readonly DependencyProperty DockVerticalProperty = DependencyProperty.RegisterAttached("DockVertical", typeof(VerticalAlignment), typeof(WindowDocker), new PropertyMetadata(VerticalAlignment.Stretch, DockVerticalChanged));
 
         public static VerticalAlignment GetDockVertical(DependencyObject obj)
@@ -49,6 +55,7 @@ namespace Growl.Displays.Wpf
         {
             obj.SetValue(DockVerticalProperty, value);
         }
+
         #endregion
 
         private static void DockedScreenChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
@@ -78,7 +85,7 @@ namespace Growl.Displays.Wpf
             if (value >= 0)
             {
                 window.Loaded += PopupLoaded;
-                window.LocationChanged += new System.EventHandler(WindowLocationChanged);
+                window.LocationChanged += WindowLocationChanged;
                 window.SizeChanged += WindowSizeChanged;
                 RelocateWindow(window);
             }
@@ -95,7 +102,7 @@ namespace Growl.Displays.Wpf
             RelocateWindow((Window)sender);
         }
 
-        static void WindowLocationChanged(object sender, System.EventArgs e)
+        private static void WindowLocationChanged(object sender, EventArgs e)
         {
             RelocateWindow((Window)sender);
         }
