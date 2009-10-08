@@ -128,9 +128,8 @@ namespace Growl.Displays.TranslucentDark
             {
                 return new FontFamily(name);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
-                MessageBox.Show(e.ToString());
                 return null;
             }
         }
