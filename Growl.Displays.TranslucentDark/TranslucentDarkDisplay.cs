@@ -25,7 +25,7 @@ namespace Growl.Displays.TranslucentDark
 
         public override string Version
         {
-            get { return "1.5.0.0"; }
+            get { return "1.6.0.0"; }
         }
 
         public override string Author
