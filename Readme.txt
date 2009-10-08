@@ -1,4 +1,4 @@
-Translucent Dark v1.5
+Translucent Dark v1.6
 Copyright 2009 FrozenCow
 http://www.softwarebakery.com/frozencow/
 
@@ -18,6 +18,13 @@ and copy the files from this package there (assumed {USER} is your username).
 
 Changelog
 =========
+v1.6
+- Added ability to change fonts and font-sizes.
+- Added option to 'pause' notifications when an fullscreen application is running.
+- Fixed settings file being created in GfW's executable folder.
+- Separated Growl.Displays.Wpf.dll from Growl.Displays.TranslucentDark.dll.
+- Several other fixes.
+
 v1.5
 - Fixed keyboard-shortcuts crashing the display.
 - Several code cleanups.
