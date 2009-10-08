@@ -23,7 +23,7 @@ namespace Growl.Displays.Wpf
                 return;
             NotificationsPopup = CreatePopup();
             if (NotificationsPopup == null)
-                throw new Exception("The GrowlPopup was not created! Make sure CreatePopup always returns an instance.");
+                throw new InvalidOperationException("The GrowlPopup was not created! Make sure CreatePopup always returns an instance.");
             NotificationsPopup.NotificationOpened += NotificationsPopupNotificationOpened;
             NotificationsPopup.NotificationClicked += NotificationsPopupNotificationClicked;
             NotificationsPopup.NotificationClosed += NotificationsPopupNotificationClosed;

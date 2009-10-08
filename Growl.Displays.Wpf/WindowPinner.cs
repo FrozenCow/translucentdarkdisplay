@@ -77,7 +77,7 @@ namespace Growl.Displays.Wpf
             {
                 int result = SetParent(handle, hProgMan);
                 if (result != 65556)
-                    throw new Exception("Failed");
+                    throw new InvalidOperationException("Could not pin to desktop.");
             }
         }
 
