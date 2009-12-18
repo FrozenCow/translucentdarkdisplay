@@ -49,6 +49,7 @@ namespace Growl.Displays.TranslucentDark
         private ComboBox descriptionFontSizeBox;
         private ComboBox titleFontSizeBox;
         private System.Windows.Forms.ColorDialog colorDialog;
+        private CheckBox FadeAnimationBox;
 
         object[] fontSizes = new object[]
                 {
@@ -80,8 +81,6 @@ namespace Growl.Displays.TranslucentDark
             this.titleFontSizeBox = new System.Windows.Forms.ComboBox();
             this.titleSizeLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.descriptionFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
-            this.titleFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
             this.containerAlphaBox = new System.Windows.Forms.NumericUpDown();
             this.containerColorBox = new System.Windows.Forms.PictureBox();
             this.containerColorLabel = new System.Windows.Forms.Label();
@@ -93,6 +92,9 @@ namespace Growl.Displays.TranslucentDark
             this.PauseOnFullscreenBox = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.fontDialog = new System.Windows.Forms.FontDialog();
+            this.FadeAnimationBox = new System.Windows.Forms.CheckBox();
+            this.descriptionFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
+            this.titleFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
             this.placementBox.SuspendLayout();
@@ -328,27 +330,6 @@ namespace Growl.Displays.TranslucentDark
             this.label1.TabIndex = 28;
             this.label1.Text = "Font";
             // 
-            // descriptionFontFamilyBox
-            // 
-            this.descriptionFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
-            this.descriptionFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.descriptionFontFamilyBox.Location = new System.Drawing.Point(88, 232);
-            this.descriptionFontFamilyBox.Name = "descriptionFontFamilyBox";
-            this.descriptionFontFamilyBox.Size = new System.Drawing.Size(114, 21);
-            this.descriptionFontFamilyBox.TabIndex = 27;
-            this.descriptionFontFamilyBox.Text = "fontComboBox1";
-            this.descriptionFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontFamilyBoxSelectedIndexChanged);
-            // 
-            // titleFontFamilyBox
-            // 
-            this.titleFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
-            this.titleFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.titleFontFamilyBox.Location = new System.Drawing.Point(88, 152);
-            this.titleFontFamilyBox.Name = "titleFontFamilyBox";
-            this.titleFontFamilyBox.Size = new System.Drawing.Size(114, 21);
-            this.titleFontFamilyBox.TabIndex = 20;
-            this.titleFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontFamilySelectedIndexChanged);
-            // 
             // containerAlphaBox
             // 
             this.containerAlphaBox.Location = new System.Drawing.Point(129, 19);
@@ -432,10 +413,11 @@ namespace Growl.Displays.TranslucentDark
             // 
             // behaviorBox
             // 
+            this.behaviorBox.Controls.Add(this.FadeAnimationBox);
             this.behaviorBox.Controls.Add(this.PauseOnFullscreenBox);
             this.behaviorBox.Location = new System.Drawing.Point(218, 113);
             this.behaviorBox.Name = "behaviorBox";
-            this.behaviorBox.Size = new System.Drawing.Size(232, 45);
+            this.behaviorBox.Size = new System.Drawing.Size(232, 70);
             this.behaviorBox.TabIndex = 19;
             this.behaviorBox.TabStop = false;
             this.behaviorBox.Text = "Behavior";
@@ -443,7 +425,7 @@ namespace Growl.Displays.TranslucentDark
             // PauseOnFullscreenBox
             // 
             this.PauseOnFullscreenBox.AutoSize = true;
-            this.PauseOnFullscreenBox.Location = new System.Drawing.Point(12, 19);
+            this.PauseOnFullscreenBox.Location = new System.Drawing.Point(12, 42);
             this.PauseOnFullscreenBox.Name = "PauseOnFullscreenBox";
             this.PauseOnFullscreenBox.Size = new System.Drawing.Size(119, 17);
             this.PauseOnFullscreenBox.TabIndex = 0;
@@ -457,6 +439,38 @@ namespace Growl.Displays.TranslucentDark
             // fontDialog
             // 
             this.fontDialog.ShowEffects = false;
+            // 
+            // FadeAnimationBox
+            // 
+            this.FadeAnimationBox.AutoSize = true;
+            this.FadeAnimationBox.Location = new System.Drawing.Point(12, 19);
+            this.FadeAnimationBox.Name = "FadeAnimationBox";
+            this.FadeAnimationBox.Size = new System.Drawing.Size(117, 17);
+            this.FadeAnimationBox.TabIndex = 1;
+            this.FadeAnimationBox.Text = "Use fade animation";
+            this.FadeAnimationBox.UseVisualStyleBackColor = true;
+            this.FadeAnimationBox.CheckedChanged += new System.EventHandler(this.FadeAnimationBoxCheckedChanged);
+            // 
+            // descriptionFontFamilyBox
+            // 
+            this.descriptionFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.descriptionFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.descriptionFontFamilyBox.Location = new System.Drawing.Point(88, 232);
+            this.descriptionFontFamilyBox.Name = "descriptionFontFamilyBox";
+            this.descriptionFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.descriptionFontFamilyBox.TabIndex = 27;
+            this.descriptionFontFamilyBox.Text = "fontComboBox1";
+            this.descriptionFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontFamilyBoxSelectedIndexChanged);
+            // 
+            // titleFontFamilyBox
+            // 
+            this.titleFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.titleFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.titleFontFamilyBox.Location = new System.Drawing.Point(88, 152);
+            this.titleFontFamilyBox.Name = "titleFontFamilyBox";
+            this.titleFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.titleFontFamilyBox.TabIndex = 20;
+            this.titleFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontFamilySelectedIndexChanged);
             // 
             // TranslucentDarkSettingsPanel
             // 
@@ -536,6 +550,8 @@ namespace Growl.Displays.TranslucentDark
             containerAlphaBox.Value = Settings.ContainerColor.A;
 
             PauseOnFullscreenBox.Checked = Settings.PauseOnFullscreen;
+
+            FadeAnimationBox.Checked = Settings.UseFadeAnimation;
 
             showTitleBox.Checked = Settings.ShowTitle;
             showDescriptionBox.Checked = Settings.ShowDescription;
@@ -697,6 +713,11 @@ namespace Growl.Displays.TranslucentDark
         private void PauseOnFullscreenBoxCheckedChanged(object sender, EventArgs e)
         {
             Settings.PauseOnFullscreen = PauseOnFullscreenBox.Checked;
+        }
+
+        private void FadeAnimationBoxCheckedChanged(object sender, EventArgs e)
+        {
+            Settings.UseFadeAnimation = FadeAnimationBox.Checked;
         }
 
         private void ShowTitleBoxCheckedChanged(object sender, EventArgs e)

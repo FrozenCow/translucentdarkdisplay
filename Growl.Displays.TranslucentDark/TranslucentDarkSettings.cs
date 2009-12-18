@@ -73,6 +73,12 @@ namespace Growl.Displays.TranslucentDark
             set { Set("PauseOnFullscreen", value); }
         }
 
+        public bool UseFadeAnimation
+        {
+            get { return Get("UseFadeAnimation", false); }
+            set { Set("UseFadeAnimation", value); }
+        }
+
         public string TitleFontFamily
         {
             get { return Get<string>("TitleFontFamily", null); }

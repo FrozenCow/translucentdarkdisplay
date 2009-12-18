@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -100,6 +101,14 @@ namespace Growl.Displays.TranslucentDark
 
         public static readonly DependencyProperty DescriptionFontSizeProperty = DependencyProperty.Register("DescriptionFontSize", typeof(double), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None));
 
+        public bool UseFadeAnimation
+        {
+            get { return (bool)GetValue(UseFadeAnimationProperty); }
+            set { SetValue(UseFadeAnimationProperty, value); }
+        }
+
+        public static readonly DependencyProperty UseFadeAnimationProperty = DependencyProperty.Register("UseFadeAnimation", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
+
         #endregion
 
         #region Constructors
@@ -151,29 +160,48 @@ namespace Growl.Displays.TranslucentDark
 
         protected override void BeginTimeoutAnimation(GrowlNotification notification)
         {
-            var notificationBorder = GetNotificationElement(notification);
-            var notificationTransformation = notificationBorder.RenderTransform;
-            Duration animationDuration = new Duration(TimeSpan.FromSeconds(0.5));
-            AnimationTimeline animation;
-            HorizontalAlignment horizontal = PopupDocker.GetDockHorizontal(this);
-            if (horizontal == HorizontalAlignment.Left)
-                animation = new DoubleAnimation(0.0, -notificationBorder.ActualWidth, animationDuration);
+            Duration timeoutDuration = new Duration(TimeSpan.FromSeconds(0.5));
+            if (UseFadeAnimation && (from n in Notifications where n.Status <= GrowlNotificationStatus.Opened select n).Count() <= 1)
+            {
+                var animation = new DoubleAnimation(0, timeoutDuration);
+                animation.Completed += delegate { EndTimeoutAnimation(notification); };
+                border.BeginAnimation(OpacityProperty, animation);
+            }
             else
-                animation = new DoubleAnimation(0.0, notificationBorder.ActualWidth, animationDuration);
-            animation.Completed += delegate { EndTimeoutAnimation(notification); };
-            notificationTransformation.BeginAnimation(TranslateTransform.XProperty, animation);
+            {
+                var notificationBorder = GetNotificationElement(notification);
+                var notificationTransformation = notificationBorder.RenderTransform;
+                AnimationTimeline animation;
+                HorizontalAlignment horizontal = PopupDocker.GetDockHorizontal(this);
+                if (horizontal == HorizontalAlignment.Left)
+                    animation = new DoubleAnimation(0.0, -notificationBorder.ActualWidth, timeoutDuration);
+                else
+                    animation = new DoubleAnimation(0.0, notificationBorder.ActualWidth, timeoutDuration);
+                animation.Completed += delegate { EndTimeoutAnimation(notification); };
+                notificationTransformation.BeginAnimation(TranslateTransform.XProperty, animation);
+            }
         }
 
         protected override void BeginOpenAnimation(GrowlNotification notification)
         {
-            var container = GetNotificationElement(notification);
-            VerticalAlignment vertical = PopupDocker.GetDockVertical(this);
-            if (vertical == VerticalAlignment.Bottom ||
-                vertical == VerticalAlignment.Top)
+            var openDuration = new Duration(TimeSpan.FromSeconds(0.5));
+            if (UseFadeAnimation && Notifications.Count <= 1)
             {
-                var animation = new DoubleAnimation((vertical == VerticalAlignment.Top ? -1.0 : 1.0) * container.DesiredSize.Height + borderTranslation.Y, 0, new Duration(TimeSpan.FromSeconds(0.5)));
+                var animation = new DoubleAnimation(0, 1, openDuration);
                 animation.Completed += delegate { EndOpenAnimation(notification); };
-                borderTranslation.BeginAnimation(TranslateTransform.YProperty, animation);
+                border.BeginAnimation(OpacityProperty, animation);
+            }
+            else
+            {
+                var container = GetNotificationElement(notification);
+                VerticalAlignment vertical = PopupDocker.GetDockVertical(this);
+                if (vertical == VerticalAlignment.Bottom ||
+                    vertical == VerticalAlignment.Top)
+                {
+                    var animation = new DoubleAnimation((vertical == VerticalAlignment.Top ? -1.0 : 1.0) * container.DesiredSize.Height + borderTranslation.Y, 0, new Duration(TimeSpan.FromSeconds(0.5)));
+                    animation.Completed += delegate { EndOpenAnimation(notification); };
+                    borderTranslation.BeginAnimation(TranslateTransform.YProperty, animation);
+                }
             }
         }
 
