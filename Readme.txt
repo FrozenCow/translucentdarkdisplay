@@ -1,4 +1,4 @@
-Translucent Dark v1.6
+Translucent Dark v1.7
 Copyright 2009 FrozenCow
 http://www.softwarebakery.com/frozencow/
 
@@ -18,6 +18,9 @@ and copy the files from this package there (assumed {USER} is your username).
 
 Changelog
 =========
+v1.7
+- Added option to fade in and out (instead of slide in and out).
+
 v1.6
 - Added ability to change fonts and font-sizes.
 - Added option to 'pause' notifications when an fullscreen application is running.
