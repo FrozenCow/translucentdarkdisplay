@@ -139,7 +139,7 @@ namespace Growl.Displays.TranslucentDark
                 );
 
             var itemsSource = Notifications;
-            if (VerticalAlignment == VerticalAlignment.Top)
+            if (PopupDocker.GetDockVertical(this) == VerticalAlignment.Top)
                 itemsSource = new ReversedObservableCollection<GrowlNotification>(Notifications);
             notificationsControl.ItemsSource = itemsSource;
         }
