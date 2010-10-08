@@ -1,5 +1,5 @@
-Translucent Dark v1.7
-Copyright 2009 FrozenCow
+Translucent Dark v1.8
+by FrozenCow
 http://www.softwarebakery.com/frozencow/
 
 This package contains the Translucent Dark display for Growl for Windows.
@@ -18,6 +18,11 @@ and copy the files from this package there (assumed {USER} is your username).
 
 Changelog
 =========
+v1.8
+- Added option to prevent closing of notifications if mouse is hovering them.
+- Fixed bug that faded notifications too soon.
+- Fixed reversed items bug when docked in top.
+
 v1.7
 - Added option to fade in and out (instead of slide in and out).
 
