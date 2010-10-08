@@ -50,6 +50,7 @@ namespace Growl.Displays.TranslucentDark
         private ComboBox titleFontSizeBox;
         private System.Windows.Forms.ColorDialog colorDialog;
         private CheckBox FadeAnimationBox;
+        private CheckBox DontCloseOnMouseOverBox;
 
         object[] fontSizes = new object[]
                 {
@@ -81,6 +82,8 @@ namespace Growl.Displays.TranslucentDark
             this.titleFontSizeBox = new System.Windows.Forms.ComboBox();
             this.titleSizeLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.descriptionFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
+            this.titleFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
             this.containerAlphaBox = new System.Windows.Forms.NumericUpDown();
             this.containerColorBox = new System.Windows.Forms.PictureBox();
             this.containerColorLabel = new System.Windows.Forms.Label();
@@ -89,12 +92,11 @@ namespace Growl.Displays.TranslucentDark
             this.showIconBox = new System.Windows.Forms.CheckBox();
             this.iconSizeBox = new System.Windows.Forms.NumericUpDown();
             this.behaviorBox = new System.Windows.Forms.GroupBox();
+            this.FadeAnimationBox = new System.Windows.Forms.CheckBox();
             this.PauseOnFullscreenBox = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.fontDialog = new System.Windows.Forms.FontDialog();
-            this.FadeAnimationBox = new System.Windows.Forms.CheckBox();
-            this.descriptionFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
-            this.titleFontFamilyBox = new Growl.Displays.TranslucentDark.FontComboBox();
+            this.DontCloseOnMouseOverBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textColorBox)).BeginInit();
             this.placementBox.SuspendLayout();
@@ -330,6 +332,27 @@ namespace Growl.Displays.TranslucentDark
             this.label1.TabIndex = 28;
             this.label1.Text = "Font";
             // 
+            // descriptionFontFamilyBox
+            // 
+            this.descriptionFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.descriptionFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.descriptionFontFamilyBox.Location = new System.Drawing.Point(88, 232);
+            this.descriptionFontFamilyBox.Name = "descriptionFontFamilyBox";
+            this.descriptionFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.descriptionFontFamilyBox.TabIndex = 27;
+            this.descriptionFontFamilyBox.Text = "fontComboBox1";
+            this.descriptionFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontFamilyBoxSelectedIndexChanged);
+            // 
+            // titleFontFamilyBox
+            // 
+            this.titleFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
+            this.titleFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.titleFontFamilyBox.Location = new System.Drawing.Point(88, 152);
+            this.titleFontFamilyBox.Name = "titleFontFamilyBox";
+            this.titleFontFamilyBox.Size = new System.Drawing.Size(114, 21);
+            this.titleFontFamilyBox.TabIndex = 20;
+            this.titleFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontFamilySelectedIndexChanged);
+            // 
             // containerAlphaBox
             // 
             this.containerAlphaBox.Location = new System.Drawing.Point(129, 19);
@@ -413,14 +436,26 @@ namespace Growl.Displays.TranslucentDark
             // 
             // behaviorBox
             // 
+            this.behaviorBox.Controls.Add(this.DontCloseOnMouseOverBox);
             this.behaviorBox.Controls.Add(this.FadeAnimationBox);
             this.behaviorBox.Controls.Add(this.PauseOnFullscreenBox);
             this.behaviorBox.Location = new System.Drawing.Point(218, 113);
             this.behaviorBox.Name = "behaviorBox";
-            this.behaviorBox.Size = new System.Drawing.Size(232, 70);
+            this.behaviorBox.Size = new System.Drawing.Size(232, 91);
             this.behaviorBox.TabIndex = 19;
             this.behaviorBox.TabStop = false;
             this.behaviorBox.Text = "Behavior";
+            // 
+            // FadeAnimationBox
+            // 
+            this.FadeAnimationBox.AutoSize = true;
+            this.FadeAnimationBox.Location = new System.Drawing.Point(12, 19);
+            this.FadeAnimationBox.Name = "FadeAnimationBox";
+            this.FadeAnimationBox.Size = new System.Drawing.Size(117, 17);
+            this.FadeAnimationBox.TabIndex = 1;
+            this.FadeAnimationBox.Text = "Use fade animation";
+            this.FadeAnimationBox.UseVisualStyleBackColor = true;
+            this.FadeAnimationBox.CheckedChanged += new System.EventHandler(this.FadeAnimationBoxCheckedChanged);
             // 
             // PauseOnFullscreenBox
             // 
@@ -440,37 +475,16 @@ namespace Growl.Displays.TranslucentDark
             // 
             this.fontDialog.ShowEffects = false;
             // 
-            // FadeAnimationBox
+            // DontCloseOnMouseOverBox
             // 
-            this.FadeAnimationBox.AutoSize = true;
-            this.FadeAnimationBox.Location = new System.Drawing.Point(12, 19);
-            this.FadeAnimationBox.Name = "FadeAnimationBox";
-            this.FadeAnimationBox.Size = new System.Drawing.Size(117, 17);
-            this.FadeAnimationBox.TabIndex = 1;
-            this.FadeAnimationBox.Text = "Use fade animation";
-            this.FadeAnimationBox.UseVisualStyleBackColor = true;
-            this.FadeAnimationBox.CheckedChanged += new System.EventHandler(this.FadeAnimationBoxCheckedChanged);
-            // 
-            // descriptionFontFamilyBox
-            // 
-            this.descriptionFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
-            this.descriptionFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.descriptionFontFamilyBox.Location = new System.Drawing.Point(88, 232);
-            this.descriptionFontFamilyBox.Name = "descriptionFontFamilyBox";
-            this.descriptionFontFamilyBox.Size = new System.Drawing.Size(114, 21);
-            this.descriptionFontFamilyBox.TabIndex = 27;
-            this.descriptionFontFamilyBox.Text = "fontComboBox1";
-            this.descriptionFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.DescriptionFontFamilyBoxSelectedIndexChanged);
-            // 
-            // titleFontFamilyBox
-            // 
-            this.titleFontFamilyBox.BackColor = System.Drawing.SystemColors.Window;
-            this.titleFontFamilyBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.titleFontFamilyBox.Location = new System.Drawing.Point(88, 152);
-            this.titleFontFamilyBox.Name = "titleFontFamilyBox";
-            this.titleFontFamilyBox.Size = new System.Drawing.Size(114, 21);
-            this.titleFontFamilyBox.TabIndex = 20;
-            this.titleFontFamilyBox.SelectedIndexChanged += new System.EventHandler(this.TitleFontFamilySelectedIndexChanged);
+            this.DontCloseOnMouseOverBox.AutoSize = true;
+            this.DontCloseOnMouseOverBox.Location = new System.Drawing.Point(12, 66);
+            this.DontCloseOnMouseOverBox.Name = "DontCloseOnMouseOverBox";
+            this.DontCloseOnMouseOverBox.Size = new System.Drawing.Size(198, 17);
+            this.DontCloseOnMouseOverBox.TabIndex = 2;
+            this.DontCloseOnMouseOverBox.Text = "Don\'t close display if mouse is over it";
+            this.DontCloseOnMouseOverBox.UseVisualStyleBackColor = true;
+            this.DontCloseOnMouseOverBox.CheckedChanged += new System.EventHandler(this.DontCloseOnMouseOverBoxCheckedChanged);
             // 
             // TranslucentDarkSettingsPanel
             // 
@@ -552,6 +566,8 @@ namespace Growl.Displays.TranslucentDark
             PauseOnFullscreenBox.Checked = Settings.PauseOnFullscreen;
 
             FadeAnimationBox.Checked = Settings.UseFadeAnimation;
+
+            DontCloseOnMouseOverBox.Checked = Settings.DontCloseOnMouseOver;
 
             showTitleBox.Checked = Settings.ShowTitle;
             showDescriptionBox.Checked = Settings.ShowDescription;
@@ -718,6 +734,11 @@ namespace Growl.Displays.TranslucentDark
         private void FadeAnimationBoxCheckedChanged(object sender, EventArgs e)
         {
             Settings.UseFadeAnimation = FadeAnimationBox.Checked;
+        }
+
+        private void DontCloseOnMouseOverBoxCheckedChanged(object sender, EventArgs e)
+        {
+            Settings.DontCloseOnMouseOver = DontCloseOnMouseOverBox.Checked;
         }
 
         private void ShowTitleBoxCheckedChanged(object sender, EventArgs e)

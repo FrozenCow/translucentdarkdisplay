@@ -113,6 +113,7 @@ namespace Growl.Displays.TranslucentDark
             popup.DescriptionFontSize = settings.DescriptionFontSize;
 
             popup.UseFadeAnimation = settings.UseFadeAnimation;
+            popup.DontCloseOnMouseOver = settings.DontCloseOnMouseOver;
 
             PopupDocker.SetDockHorizontal(popup, settings.HorizontalPlacement);
             PopupDocker.SetDockVertical(popup, settings.VerticalPlacement);

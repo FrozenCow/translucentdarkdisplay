@@ -82,7 +82,7 @@ namespace Growl.Displays.Wpf
         {
             if (identifier == null)
                 throw new ArgumentNullException("identifier");
-            lock (_timeouts)
+            lock (_locker)
             {
                 LinkedListNode<Timeout> currentNode;
                 for (currentNode = _timeouts.First; currentNode != null; currentNode = currentNode.Next)
@@ -92,6 +92,15 @@ namespace Growl.Displays.Wpf
                     _timeouts.Remove(currentNode);
                     break;
                 }
+            }
+        }
+
+        public void ClearTimeouts()
+        {
+            lock (_locker)
+            {
+                _timeouts.Clear();
+                _timer.Stop();
             }
         }
 

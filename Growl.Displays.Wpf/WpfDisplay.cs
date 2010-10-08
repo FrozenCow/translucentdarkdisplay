@@ -150,6 +150,11 @@ namespace Growl.Displays.Wpf
             _timeouts.RemoveTimeout(notification);
         }
 
+        protected void CancelNotificationTimeouts()
+        {
+            _timeouts.ClearTimeouts();
+        }
+
         #endregion
 
         #region Notification methods

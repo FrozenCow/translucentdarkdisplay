@@ -79,6 +79,12 @@ namespace Growl.Displays.TranslucentDark
             set { Set("UseFadeAnimation", value); }
         }
 
+        public bool DontCloseOnMouseOver
+        {
+            get { return Get("DontCloseOnMouseOver", true); }
+            set { Set("DontCloseOnMouseOver", value); }
+        }
+
         public string TitleFontFamily
         {
             get { return Get<string>("TitleFontFamily", null); }

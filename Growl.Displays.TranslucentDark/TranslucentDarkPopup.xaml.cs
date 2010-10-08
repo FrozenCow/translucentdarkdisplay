@@ -6,11 +6,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Growl.Displays.Wpf;
+using System.Collections.Generic;
 
 namespace Growl.Displays.TranslucentDark
 {
     public partial class TranslucentDarkPopup
     {
+        #region Private Fields
+        private readonly Queue<GrowlNotification> _waitingNotifications = new Queue<GrowlNotification>();
+        #endregion
+
         #region Properties
 
         public double NotificationWidth
@@ -109,6 +114,14 @@ namespace Growl.Displays.TranslucentDark
 
         public static readonly DependencyProperty UseFadeAnimationProperty = DependencyProperty.Register("UseFadeAnimation", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
 
+        public bool DontCloseOnMouseOver
+        {
+            get { return (bool)GetValue(DontCloseOnMouseOverProperty); }
+            set { SetValue(DontCloseOnMouseOverProperty, value); }
+        }
+
+        public static readonly DependencyProperty DontCloseOnMouseOverProperty = DependencyProperty.Register("DontCloseOnMouseOver", typeof(bool), typeof(TranslucentDarkPopup), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None));
+
         #endregion
 
         #region Constructors
@@ -160,6 +173,12 @@ namespace Growl.Displays.TranslucentDark
 
         protected override void BeginTimeoutAnimation(GrowlNotification notification)
         {
+            if (DontCloseOnMouseOver && IsMouseOver)
+            {
+                _waitingNotifications.Enqueue(notification);
+                return;
+            }
+
             Duration timeoutDuration = new Duration(TimeSpan.FromSeconds(0.5));
             if (UseFadeAnimation && (from n in Notifications where n.Status <= GrowlNotificationStatus.Opened select n).Count() < 1)
             {
@@ -229,6 +248,15 @@ namespace Growl.Displays.TranslucentDark
             if (notification == null)
                 return;
             ClickNotification(notification);
+        }
+
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            base.OnMouseLeave(e);
+            foreach (var notification in _waitingNotifications)
+                if (notification.Status == GrowlNotificationStatus.Timingout)
+                    BeginTimeoutAnimation(notification);
+            _waitingNotifications.Clear();
         }
 
         #endregion
