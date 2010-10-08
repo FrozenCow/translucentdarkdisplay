@@ -161,7 +161,7 @@ namespace Growl.Displays.TranslucentDark
         protected override void BeginTimeoutAnimation(GrowlNotification notification)
         {
             Duration timeoutDuration = new Duration(TimeSpan.FromSeconds(0.5));
-            if (UseFadeAnimation && (from n in Notifications where n.Status <= GrowlNotificationStatus.Opened select n).Count() <= 1)
+            if (UseFadeAnimation && (from n in Notifications where n.Status <= GrowlNotificationStatus.Opened select n).Count() < 1)
             {
                 var animation = new DoubleAnimation(0, timeoutDuration);
                 animation.Completed += delegate { EndTimeoutAnimation(notification); };
